@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marine Diversity Dive</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <section id="map-section">
+            <header>
+                <h1>Mapping Marine Diversity</h1>
+                <p>Select a location on the map to begin your dive.</p>
+            </header>
+            <div id="map-container">
+                <div class="placeholder-text">Map Placeholder (Click to Select Location)</div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Dive (Scrollytelling) -->
+        <section id="dive-section" class="hidden">
+            <div id="vis-sticky"></div>
+            <div id="scroll-content"></div>
+        </section>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
