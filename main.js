@@ -81,9 +81,12 @@ function initMap() {
 function startDive() {
     console.log("Starting dive at:", state.selectedLocation);
     
-    d3.select("#map-section").style("display", "none");
+    //d3.select("#map-section").style("display", "none");
     d3.select("#dive-section").classed("hidden", false);
     
+    const element = document.getElementById('dive-section');
+    element.scrollIntoView({ behavior: 'smooth' });
+
     setupDiveVisualization();
 }
 
