@@ -92,6 +92,9 @@ function startDive() {
 
 function setupDiveVisualization() {
     const container = d3.select("#scroll-content");
+    //clear container prev contents
+    container.html("");
+    
     const stickyVis = d3.select("#vis-sticky");
     
     state.layers.forEach(layer => {
