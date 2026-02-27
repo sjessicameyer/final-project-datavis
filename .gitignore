@@ -1,0 +1,7 @@
+occurrence/
+duckdb_temp/
+data/occurence
+data/duckdb_temp
+data/bathy_matrix.rds
+.DS_Store
+process_book.md

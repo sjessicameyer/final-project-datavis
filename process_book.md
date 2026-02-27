@@ -40,9 +40,9 @@ This file drives the global map visualization. It contains the predicted ecologi
 
 | lat_bin | lon_bin | depth_layer | predicted_community_id |
 |:---|:---|:---|:---|
-| 42.5 | -68.5 | Epipelagic Zone | 3 |
-| 42.5 | -68.0 | Epipelagic Zone | 3 |
-| -10.0 | 145.5 | Bathypelagic Zone | 15 |
+| -84.5 | -180 | Epipelagic Zone | 1 |
+| -84 | -180 | Epipelagic Zone | 1 |
+| -83.5 | -180 | Epipelagic Zone | 1 |
 
 *   **lat_bin / lon_bin**: The center coordinates of the 0.5-degree spatial grid cell.
 *   **depth_layer**: The vertical zone (Epipelagic, Mesopelagic, etc.).
@@ -53,9 +53,9 @@ This file provides the biological context for each community ID, listing the top
 
 | community_id | species | avg_abundance |
 |:---|:---|:---|
-| 3 | *Calanus finmarchicus* | 450.2 |
-| 3 | *Meganyctiphanes norvegica* | 120.5 |
-| 15 | *Cyclothone microdon* | 12.1 |
+| 1 | *Trisopterus esmarkii* | 713.640300669005 |
+| 1 | *Ammodytes marinus* | 698.866009240618 |
+| 1 | *Alosa pseudoharengus* | 257.034963106 |
 
 *   **community_id**: Matches the ID in the grid file.
 *   **species**: The scientific name of the dominant species.
@@ -64,9 +64,11 @@ This file provides the biological context for each community ID, listing the top
 #### 3. `raw_species_data.csv`
 The aggregated raw data from OBIS before clustering.
 
-| kingdom | genus | species | lat_bin | lon_bin | depth_layer | total_abundance |
-|:---|:---|:---|:---|:---|:---|:---|
-| Animalia | Thunnus | *Thunnus thynnus* | 35.5 | -75.0 | Epipelagic | 50 |
+| kingdom | genus | species | lat_bin | lon_bin | depth_layer | sighting_frequency | total_abundance |
+|:---|:---|:---|:---|:---|:---|:---|:---|
+| Animalia | Aaptos | Aaptos | -26.6 | 15.1 | Epipelagic Zone | 1 | 1 |
+| Animalia | Aaptos | Aaptos | -21.6 | 114.9 | Epipelagic Zone | 1 | 1 |
+| Animalia | Aaptos | Aaptos | -21.5 | 115 | Epipelagic Zone | 1 | 1 |
 
 *   **total_abundance**: Sum of individual counts for that species in that bin/layer.
 
