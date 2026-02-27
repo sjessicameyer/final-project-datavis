@@ -9,22 +9,45 @@ body, html {
 /* Map Section */
 #map-section {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: #f0f8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5%;
+}
+
+#map-layout {
+    display: flex;
+    width: 100%;
+    height: 80vh;
+    gap: 40px;
+    align-items: center;
+}
+
+#map-info {
+    flex: 1;
+    max-width: 450px;
+    padding: 20px;
+}
+
+.instructions {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    border-left: 4px solid #3399cc;
 }
 
 #map-container {
-    flex-grow: 1;
-    width: 80%;
-    margin: 20px;
-    background-color: #dbe9f4;
-    border: 2px dashed #aaa;
+    flex: 2;
+    height: 100%;
+    border: 2px solid #aaa;
+    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 /* Dive Section */
@@ -36,15 +59,26 @@ body, html {
     position: relative;
 }
 
+#dive-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}
+
 #vis-sticky {
     position: sticky;
     top: 0;
     height: 100vh;
     width: 100%;
     z-index: 0;
-    /* Gradient will be set dynamically or via classes */
-    background: linear-gradient(to bottom, #66ccff 0%, #000033 100%);
     display: flex;
+    background: #66ccff;
     justify-content: center;
     align-items: center;
     color: white;

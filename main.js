@@ -1,3 +1,4 @@
+
 // Global state
 const state = {
     selectedLocation: null,
@@ -21,16 +22,58 @@ function loadData() {
     d3.csv("data/marine_diversity.csv").then(data => {
         state.data = data;
         console.log("Data loaded");
+    }).catch(error => {
+        console.warn("Failed to load CSV data:", error);
     });
     console.log("Loading data placeholder...");
 }
 
 function initMap() {
-    // Placeholder for Map Logic
-    const mapContainer = d3.select("#map-container");
-    
-    mapContainer.on("click", () => {
-        state.selectedLocation = "Atlantic Ocean (Mock)";
+    // EXAMPLE CODE FROM https://www.d3indepth.com/geographic/
+
+    // Get container and dimensions
+    const container = d3.select("#map-container");
+    const width = container.node().clientWidth
+    const height = container.node().clientHeight
+
+    // Clear placeholder and append canvas
+    container.html("");
+    const canvas = container.append("canvas")
+        .attr("width", width)
+        .attr("height", height);
+
+    const context = canvas.node().getContext('2d');
+
+    // Setup projection and path generator
+    const projection = d3.geoEquirectangular();
+    const geoGenerator = d3.geoPath()
+        .projection(projection)
+        .context(context);
+
+    // Load data asynchronously
+    d3.json('https://gist.githubusercontent.com/d3indepth/f28e1c3a99ea6d84986f35ac8646fac7/raw/c58cede8dab4673c91a3db702d50f7447b373d98/ne_110m_land.json')
+        .then(geojson => {
+            // Fit the projection to the canvas size
+            projection.fitSize([width, height], geojson);
+
+            context.lineWidth = 0.5;
+            context.strokeStyle = '#888';
+            context.fillStyle = '#e0e0e0';
+
+            context.beginPath();
+            geoGenerator(geojson);
+            context.fill();
+            context.stroke();
+        })
+        .catch(error => {
+            console.error("Failed to load map data:", error);
+            context.fillStyle = "#cc0000";
+            context.font = "16px sans-serif";
+            context.fillText("Error loading map data. Check console.", 20, 50);
+        });
+
+    canvas.on("click", () => {
+        state.selectedLocation = "-100, -100";
         startDive();
     });
 }

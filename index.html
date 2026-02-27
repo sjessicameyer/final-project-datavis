@@ -4,29 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marine Diversity Dive</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
 
     <div id="app">
         <section id="map-section">
-            <header>
-                <h1>Mapping Marine Diversity</h1>
-                <p>Select a location on the map to begin your dive.</p>
-            </header>
-            <div id="map-container">
-                <div class="placeholder-text">Map Placeholder (Click to Select Location)</div>
+            <div id="map-layout">
+                <div id="map-info">
+                    <h1>Mapping Marine Diversity</h1>
+                    <p>Explore the hidden patterns of life beneath the waves. This visualization uses data from the Ocean Biodiversity Information System (OBIS) to model ecological communities across different ocean depths.</p>
+                    <div class="instructions">
+                        <h3>How to use:</h3>
+                        <ul>
+                            <li>Explore the global distribution of marine life.</li>
+                            <li>Click anywhere on the map to select a location.</li>
+                            <li>Scroll down to "dive" into the water column and see how diversity changes with depth.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="map-container">
+                    <div class="placeholder-text">Map Placeholder (Click to Select Location)</div>
+                </div>
             </div>
         </section>
 
         <!-- Section 2: The Dive (Scrollytelling) -->
         <section id="dive-section" class="hidden">
+            <div id="dive-banner">
+                <h2>Dive Visualization</h2>
+                <p>Scroll to explore the ocean depths</p>
+            </div>
             <div id="vis-sticky"></div>
             <div id="scroll-content"></div>
         </section>
     </div>
 
-    <script src="js/main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
