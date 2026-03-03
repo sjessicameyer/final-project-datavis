@@ -41,13 +41,6 @@ if (file.exists("bathy_matrix.rds")) {
   saveRDS(bathy_mtx, "bathy_matrix.rds")
 }
 
-# Convert to lookup table matching the grid resolution
-bathy_df <- fortify(bathy_mtx)
-colnames(bathy_df) <- c("lon_bin", "lat_bin", "seafloor_depth")
-bathy_df$lon_bin <- round(bathy_df$lon_bin)
-bathy_df$lat_bin <- round(bathy_df$lat_bin)
-bathy_df <- bathy_df %>% group_by(lon_bin, lat_bin) %>% summarise(seafloor_depth = mean(seafloor_depth, na.rm=TRUE), .groups = "drop")
-
 all_predictions <- list()
 all_compositions <- list()
 global_id_counter <- 0
@@ -132,11 +125,13 @@ for (zone in levels(raw_data$depth_layer)) {
   lon_seq <- seq(-180, 180, by = 1)
   grid_subset <- expand.grid(lat_bin = lat_seq, lon_bin = lon_seq)
   grid_subset$depth_layer <- zone
-  
-  # Filter grid based on bathymetry (seafloor depth)
-  grid_subset <- grid_subset %>% 
-    left_join(bathy_df, by = c("lat_bin", "lon_bin"))
-  
+
+  # Get depth for each point in the grid using bilinear interpolation from the bathy object
+  # This is more accurate than the previous rounding/joining method.
+  cat("Masking grid based on bathymetry...\n")
+  grid_depths <- get.depth(bathy_mtx, x = grid_subset$lon_bin, y = grid_subset$lat_bin, locator = FALSE)
+  grid_subset$seafloor_depth <- grid_depths$depth
+
   # Define depth threshold for this zone (depths are negative)
   depth_limit <- switch(zone,
                         "Epipelagic Zone" = 0,
@@ -184,6 +179,14 @@ for (zone in levels(raw_data$depth_layer)) {
 pred_grid <- bind_rows(all_predictions)
 community_profiles <- bind_rows(all_compositions)
 pred_grid_clean <- pred_grid %>% select(-X, -Y, -Z, -seafloor_depth)
+
+# Diagnostic check for equator points
+equator_check <- pred_grid_clean %>% filter(lat_bin == 0)
+if (nrow(equator_check) > 0) {
+  cat("\n[DIAGNOSTIC] Check successful: Found", nrow(equator_check), "data points along the equator (lat_bin = 0).\n")
+} else {
+  cat("\n[DIAGNOSTIC] Check failed: No data points found along the equator.\n")
+}
 
 write.csv(pred_grid_clean, output_grid, row.names = FALSE)
 write.csv(community_profiles, output_comp, row.names = FALSE)
