@@ -37,15 +37,15 @@ cat("Loading bathymetry data to mask invalid depth zones...\n")
 if (file.exists("bathy_matrix.rds")) {
   bathy_mtx <- readRDS("bathy_matrix.rds")
 } else {
-  bathy_mtx <- getNOAA.bathy(lon1 = -180, lon2 = 180, lat1 = -90, lat2 = 90, resolution = 30)
+  bathy_mtx <- getNOAA.bathy(lon1 = -180, lon2 = 180, lat1 = -90, lat2 = 90, resolution = 60)
   saveRDS(bathy_mtx, "bathy_matrix.rds")
 }
 
 # Convert to lookup table matching the grid resolution
 bathy_df <- fortify(bathy_mtx)
 colnames(bathy_df) <- c("lon_bin", "lat_bin", "seafloor_depth")
-bathy_df$lon_bin <- round(bathy_df$lon_bin * 2) / 2
-bathy_df$lat_bin <- round(bathy_df$lat_bin * 2) / 2
+bathy_df$lon_bin <- round(bathy_df$lon_bin)
+bathy_df$lat_bin <- round(bathy_df$lat_bin)
 bathy_df <- bathy_df %>% group_by(lon_bin, lat_bin) %>% summarise(seafloor_depth = mean(seafloor_depth, na.rm=TRUE), .groups = "drop")
 
 all_predictions <- list()
@@ -128,8 +128,8 @@ for (zone in levels(raw_data$depth_layer)) {
   site_matrix$community_id <- factor(site_matrix$local_cluster + global_id_counter)
   
   # 5. Predict for Global Grid using KNN (Spatial Interpolation)
-  lat_seq <- seq(-85, 85, by = 0.5)
-  lon_seq <- seq(-180, 180, by = 0.5)
+  lat_seq <- seq(-85, 85, by = 1)
+  lon_seq <- seq(-180, 180, by = 1)
   grid_subset <- expand.grid(lat_bin = lat_seq, lon_bin = lon_seq)
   grid_subset$depth_layer <- zone
   
