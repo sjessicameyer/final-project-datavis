@@ -28,7 +28,6 @@ async function loadUFLocData() {
 async function loadFLocData() {
 	// Pull filtered location data from filtered file
 	return d3.json("data/predicted_community_data.json").then(data => {
-		data.forEach(d => { d.lat = +d.lat; d.lon = +d.lon; }); 	// Ensure lat/lon are parsed as numbers
 		console.log("Filtered data loaded and parsed.");
 		return data;
 	});
@@ -85,7 +84,7 @@ function drawContinentMasks(svgData) {
 }
 
 function svgOnClick(e) {
-	let coords = e.target.__data__.properties;
+	let coords = e.target.__data__.properties.site;
 	console.log(coords);
 }
 
