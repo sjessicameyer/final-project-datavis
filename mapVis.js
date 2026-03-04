@@ -1,14 +1,23 @@
-// SVG Constants
-const width = 928;
-const marginTop = 46;
-const height = width / 2 + marginTop;
+// Global state
+const state = {
+	selectedLocation: null,
+	locationDataState: null,
+	communityDataState: null,
+	layers: [
+		{ name: "Epipelagic Zone", depth: "0-200m", color: "#66ccff" },
+		{ name: "Mesopelagic Zone", depth: "200-1000m", color: "#3399cc" },
+		{ name: "Bathypelagic Zone", depth: "1000-4000m", color: "#006699" },
+		{ name: "Abyssopelagic Zone", depth: "4000m+", color: "#003366" }
+	]
+};
 
-let locationDataState;
-let communityDataState;
+// SVG Constants
+const width = d3.select("#map-container").node().clientWidth;
+const height = width / 2;
 
 const projection = d3.geoEqualEarth().fitExtent(
 	[
-		[2, marginTop + 2],
+		[2, 2],
 		[width - 2, height]
 	],
 	{ type: "Sphere" }
@@ -18,7 +27,7 @@ const projection = d3.geoEqualEarth().fitExtent(
 async function loadLocData() {
 	// Pull filtered location data from filtered file
 	return d3.json("data/predicted_community_data.json").then(data => {
-		locationDataState = data;
+		state.locationDataState = data;
 		return;
 	});
 };
@@ -27,7 +36,7 @@ async function loadLocData() {
 async function loadCommData() {
 	// Pull filtered location data from filtered file
 	return d3.json("data/community_composition.json").then(data => {
-		communityDataState = data;
+		state.communityDataState = data;
 		return;
 	});
 };
@@ -47,14 +56,7 @@ async function initMap() {
 			.attr("viewBox", [0, 0, width, height])
 			.attr("style", "max-width: 100%; height: auto;");
 
-		// Draw background
-		svg.append("path")
-			.datum({ type: "Sphere" })
-			.attr("fill", "white")
-			.attr("stroke", "currentColor")
-			.attr("d", path);
-
-		document.getElementById("chart").append(svg.node());
+		document.getElementById("map-container").append(svg.node());
 
 		return { "svg": svg, "land": land, "path": path };
 	});
@@ -70,7 +72,7 @@ function drawCoordData(svgData) {
 		.attr("d", svgData.path);
 
 	// project coordinates to flat screen pixels
-	let projectedPoints = locationDataState.map(d => {
+	let projectedPoints = state.locationDataState.map(d => {
 		let p = projection([d.lon, d.lat]);
 		return p ? [p[0], p[1], d] : null; 
 	}).filter(d => d !== null);
@@ -90,9 +92,11 @@ function drawCoordData(svgData) {
 	.data(projectedPoints)
 	.join("path")
 		.attr("d", (d, i) => voronoi.renderCell(i))
-		.on("click", svgOnClick);
+		.on("click", svgOnClick)
+	.style("cursor", "crosshair");
 }
 
+// Draw continents and border as unclickable masks
 function drawContinentMasks(svgData) {
 	// Draw continents
 	svgData.svg.append("g")
@@ -100,21 +104,26 @@ function drawContinentMasks(svgData) {
 		.data(svgData.land.features)
 		.join("path")
 		.attr("fill", "#d9d9d9")
-		.attr("d", svgData.path);
+		.attr("d", svgData.path)
+		.style("cursor", "default");
+
+	// Draw background
+	svgData.svg.append("path")
+		.datum({ type: "Sphere" })
+		.attr("fill", "none")
+		.attr("stroke", "currentColor")
+		.attr("d", svgData.path)
+		.style("cursor", "default");
 }
 
 // Handle onClick events
 function svgOnClick(e) {
 	let data = e.target.__data__[2];
-	console.log(data.zones.map(d => +d.community_id));
+	state.selectedLocation = [data.lat, data.lon];
+	console.log(data);
+	startDive();
 }
 
 function onlyUnique(value, index, array) {
   return array.indexOf(value) === index;
 }
-
-Promise.all([initMap(), loadLocData(), loadCommData()]).then(data => {
-	svgData = data[0];
-	drawCoordData(svgData);
-	drawContinentMasks(svgData);
-})
