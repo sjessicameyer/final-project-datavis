@@ -61,17 +61,41 @@ async function initMap() {
 		return { "svg": svg, "land": land, "path": path };
 	});
 }
-
 function drawCoordData(svgData, locData) {
-	svgData.svg.append("g")
-		.attr("fill", "none")
-		.attr("stroke", "red")
-		.attr("pointer-events", "all")
-	.selectAll("path")
-	.data(d3.geoVoronoi().polygons(locData.map(d => [d.lon, d.lat])).features)
-	.join("path")
-		.attr("d", svgData.path)
-		.on("click", svgOnClick);
+    // clip shaped as globe
+    svgData.svg.append("defs").append("clipPath")
+        .attr("id", "globe-clip")
+        .append("path")
+        .datum({ type: "Sphere" })
+        .attr("d", svgData.path);
+
+    // project coordinates to flat screen pixels
+    let projectedPoints = locData.map(d => {
+        let p = projection([d.lon, d.lat]);
+        return p ? [p[0], p[1], d] : null; 
+    }).filter(d => d !== null);
+
+    // 2d mathematical net
+    const delaunay = d3.Delaunay.from(projectedPoints, d => d[0], d => d[1]);
+
+    // pixel boundaries of map
+    const voronoi = delaunay.voronoi([0, 0, width, height]);
+
+    // draw the Voronoi cells and apply the clip path
+    svgData.svg.append("g")
+        .attr("clip-path", "url(#globe-clip)") 
+        .attr("fill", "transparent")
+        .attr("stroke", "#cccccc")
+        .attr("stroke-width", 0.5)
+        .style("pointer-events", "all")
+    .selectAll("path")
+    .data(projectedPoints)
+    .join("path")
+        .attr("d", (d, i) => voronoi.renderCell(i))
+        .on("click", (event, d) => {
+            let originalData = d[2];
+            console.log("Voronoi cell clicked:", originalData);
+        });
 }
 
 function drawContinentMasks(svgData) {
