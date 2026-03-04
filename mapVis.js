@@ -27,11 +27,10 @@ async function loadUFLocData() {
 // Load filtered data
 async function loadFLocData() {
 	// Pull filtered location data from filtered file
-  return d3.json("data/predicted_community_data.json").then(data => {
-		console.log("Data loaded");
-		return data;
-	});
-}
+	data.forEach(d => { d.lat = +d.lat; d.lon = +d.lon; }); 	// Ensure lat/lon are parsed as numbers
+	console.log("Data loaded");
+	return data;
+};
 
 async function initMap() {
 	// Pull topojson data from provided file
@@ -115,7 +114,7 @@ function onlyUnique(value, index, array) {
   return array.indexOf(value) === index;
 }
 
-Promise.all([initMap(), loadFLocData()]).then(data => {
+Promise.all([initMap(), loadUFLocData()]).then(data => {
 	drawCoordData(data[0], data[1]);
 	drawContinentMasks(data[0]);
 })
