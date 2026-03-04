@@ -83,7 +83,7 @@ function drawContinentMasks(svgData) {
 }
 
 function svgOnClick(e) {
-	let coords = e.target.__data__.properties.site;
+	let coords = e.target.__data__.properties;
 	console.log(coords);
 }
 
@@ -98,13 +98,13 @@ async function loadUData() {
 
 		// Create new JSON storing system
 		let uniqueJSON = [...Array(uniqueData.length).keys()].map(d => {
-			let _d = uniqueData[d].split(','); return {'lat': _d[0], 'lon': _d[1], 'zones': []}
+			let _d = uniqueData[d].split(','); return {'lat': +_d[0], 'lon': +_d[1], 'zones': []}
 		});
 
 		// Combine data into new JSON storing system
 		data.forEach(d => {
 			let index = uniqueData.indexOf(d.lat_bin+','+d.lon_bin);
-			uniqueJSON[index].zones.push({'layer': d.depth_layer.split(' ')[0], 'community_id': d.predicted_community_id});
+			uniqueJSON[index].zones.push({'layer': d.depth_layer.split(' ')[0], 'community_id': +d.predicted_community_id});
 		});
 
 		console.log(uniqueJSON)
