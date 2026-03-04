@@ -1,4 +1,7 @@
+<<<<<<< HEAD
+=======
 
+>>>>>>> main
 // Global state
 const state = {
     selectedLocation: null,
