@@ -17,8 +17,8 @@ function checkUnique(coord, index, array) {
 
 // Load unfiltered data
 async function loadUFLocData() {
-	// Pull filtered location data from filtered file
-  return d3.csv("data/predicted_communities.csv").then(data => {
+	// Pull unfiltered location data from unfiltered file
+  	return d3.csv("data/predicted_communities.csv").then(data => {
 		console.log("Data loaded");
 		return data.map(d => {return {'lat': +d.lat_bin, 'lon': +d.lon_bin}});
 	});
@@ -27,11 +27,13 @@ async function loadUFLocData() {
 // Load filtered data
 async function loadFLocData() {
 	// Pull filtered location data from filtered file
-  return d3.json("data/predicted_community_data.json").then(data => {
-		console.log("Data loaded");
+	return d3.json("data/predicted_community_data.json").then(data => {
+		data.forEach(d => { d.lat = +d.lat; d.lon = +d.lon; }); 	// Ensure lat/lon are parsed as numbers
+		console.log("Filtered data loaded and parsed.");
 		return data;
 	});
-}
+
+};
 
 async function initMap() {
 	// Pull topojson data from provided file
