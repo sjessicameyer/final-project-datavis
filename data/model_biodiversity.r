@@ -167,8 +167,9 @@ for (zone in levels(raw_data$depth_layer)) {
     group_by(community_id) %>%
     summarise(across(everything(), mean)) %>%
     pivot_longer(-community_id, names_to = "species", values_to = "avg_abundance") %>%
+    filter(avg_abundance > 0) %>% # This removes any species that are completely absent
     group_by(community_id) %>%
-    slice_max(avg_abundance, n = 5) %>%
+    slice_max(avg_abundance, n = 5, with_ties = FALSE) %>% # This forces a strict cut-off at 5
     arrange(community_id, desc(avg_abundance))
   
   all_compositions[[zone]] <- comp
