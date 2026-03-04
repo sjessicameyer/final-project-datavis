@@ -3,6 +3,8 @@ const width = 928;
 const marginTop = 46;
 const height = width / 2 + marginTop;
 
+let globalDataState;
+
 const projection = d3.geoEqualEarth().fitExtent(
 	[
 		[2, marginTop + 2],
@@ -11,29 +13,17 @@ const projection = d3.geoEqualEarth().fitExtent(
 	{ type: "Sphere" }
 ).rotate([-180,0]);
 
-function checkUnique(coord, index, array) {
-  return index === array.findIndex((d) => (d.lat === coord.lat && d.lon === coord.lon));
-}
-
-// Load unfiltered data
-async function loadUFLocData() {
-	// Pull unfiltered location data from unfiltered file
-  	return d3.csv("data/predicted_communities.csv").then(data => {
-		console.log("Data loaded");
-		return data.map(d => {return {'lat': +d.lat_bin, 'lon': +d.lon_bin}});
-	});
-}
-
 // Load filtered data
-async function loadFLocData() {
+async function loadLocData() {
 	// Pull filtered location data from filtered file
 	return d3.json("data/predicted_community_data.json").then(data => {
-		console.log("Filtered data loaded and parsed.");
-		return data;
+		globalDataState = data;
+		return;
 	});
 
 };
 
+// Initialize svg and map border
 async function initMap() {
 	// Pull topojson data from provided file
 	return d3.json("data/countries-50m.json").then((world) => {
@@ -60,41 +50,38 @@ async function initMap() {
 		return { "svg": svg, "land": land, "path": path };
 	});
 }
-function drawCoordData(svgData, locData) {
-    // clip shaped as globe
-    svgData.svg.append("defs").append("clipPath")
-        .attr("id", "globe-clip")
-        .append("path")
-        .datum({ type: "Sphere" })
-        .attr("d", svgData.path);
 
-    // project coordinates to flat screen pixels
-    let projectedPoints = locData.map(d => {
-        let p = projection([d.lon, d.lat]);
-        return p ? [p[0], p[1], d] : null; 
-    }).filter(d => d !== null);
+// Draw coordinates onto map
+function drawCoordData(svgData) {
+	// clip shaped as globe
+	svgData.svg.append("defs").append("clipPath")
+		.attr("id", "globe-clip")
+		.append("path")
+		.datum({ type: "Sphere" })
+		.attr("d", svgData.path);
 
-    // 2d mathematical net
-    const delaunay = d3.Delaunay.from(projectedPoints, d => d[0], d => d[1]);
+	// project coordinates to flat screen pixels
+	let projectedPoints = globalDataState.map(d => {
+		let p = projection([d.lon, d.lat]);
+		return p ? [p[0], p[1], d] : null; 
+	}).filter(d => d !== null);
 
-    // pixel boundaries of map
-    const voronoi = delaunay.voronoi([0, 0, width, height]);
+	// 2d mathematical net
+	const delaunay = d3.Delaunay.from(projectedPoints, d => d[0], d => d[1]);
 
-    // draw the Voronoi cells and apply the clip path
-    svgData.svg.append("g")
-        .attr("clip-path", "url(#globe-clip)") 
-        .attr("fill", "transparent")
-        .attr("stroke", "#cccccc")
-        .attr("stroke-width", 0.5)
-        .style("pointer-events", "all")
-    .selectAll("path")
-    .data(projectedPoints)
-    .join("path")
-        .attr("d", (d, i) => voronoi.renderCell(i))
-        .on("click", (event, d) => {
-            let originalData = d[2];
-            console.log("Voronoi cell clicked:", originalData);
-        });
+	// pixel boundaries of map
+	const voronoi = delaunay.voronoi([0, 0, width, height]);
+
+	// draw the Voronoi cells and apply the clip path
+	svgData.svg.append("g")
+		.attr("clip-path", "url(#globe-clip)") 
+		.attr("fill", "transparent")
+		.style("pointer-events", "all")
+	.selectAll("path")
+	.data(projectedPoints)
+	.join("path")
+		.attr("d", (d, i) => voronoi.renderCell(i))
+		.on("click", svgOnClick);
 }
 
 function drawContinentMasks(svgData) {
@@ -107,8 +94,9 @@ function drawContinentMasks(svgData) {
 		.attr("d", svgData.path);
 }
 
+// Handle onClick events
 function svgOnClick(e) {
-	let coords = e.target.__data__.properties.site;
+	let coords = e.target.__data__[2];
 	console.log(coords);
 }
 
@@ -140,7 +128,8 @@ function onlyUnique(value, index, array) {
   return array.indexOf(value) === index;
 }
 
-Promise.all([initMap(), loadFLocData()]).then(data => {
-	drawCoordData(data[0], data[1]);
-	drawContinentMasks(data[0]);
+Promise.all([initMap(), loadLocData()]).then(data => {
+	svgData = data[0];
+	drawCoordData(svgData);
+	drawContinentMasks(svgData);
 })
