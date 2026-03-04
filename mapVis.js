@@ -3,7 +3,8 @@ const width = 928;
 const marginTop = 46;
 const height = width / 2 + marginTop;
 
-let globalDataState;
+let locationDataState;
+let communityDataState;
 
 const projection = d3.geoEqualEarth().fitExtent(
 	[
@@ -13,14 +14,22 @@ const projection = d3.geoEqualEarth().fitExtent(
 	{ type: "Sphere" }
 ).rotate([-180,0]);
 
-// Load filtered data
+// Load filtered location data
 async function loadLocData() {
 	// Pull filtered location data from filtered file
 	return d3.json("data/predicted_community_data.json").then(data => {
-		globalDataState = data;
+		locationDataState = data;
 		return;
 	});
+};
 
+// Load normalized community data
+async function loadCommData() {
+	// Pull filtered location data from filtered file
+	return d3.json("data/community_composition.json").then(data => {
+		communityDataState = data;
+		return;
+	});
 };
 
 // Initialize svg and map border
@@ -61,7 +70,7 @@ function drawCoordData(svgData) {
 		.attr("d", svgData.path);
 
 	// project coordinates to flat screen pixels
-	let projectedPoints = globalDataState.map(d => {
+	let projectedPoints = locationDataState.map(d => {
 		let p = projection([d.lon, d.lat]);
 		return p ? [p[0], p[1], d] : null; 
 	}).filter(d => d !== null);
@@ -96,39 +105,15 @@ function drawContinentMasks(svgData) {
 
 // Handle onClick events
 function svgOnClick(e) {
-	let coords = e.target.__data__[2];
-	console.log(coords);
-}
-
-// Load data into compact JSON (predicted_community_data.json)
-async function loadUData() {
-	return d3.csv("data/predicted_communities.csv").then(data => {
-		// Turn CSV into lat/lon JSON
-		let lat_lon = data.map(d => {return {'lat': +d.lat_bin, 'lon': +d.lon_bin}});
-
-		// Filter JSON array for only unique values
-		let uniqueData = lat_lon.map(d => d.lat + ',' + d.lon).filter(onlyUnique);
-
-		// Create new JSON storing system
-		let uniqueJSON = [...Array(uniqueData.length).keys()].map(d => {
-			let _d = uniqueData[d].split(','); return {'lat': +_d[0], 'lon': +_d[1], 'zones': []}
-		});
-
-		// Combine data into new JSON storing system
-		data.forEach(d => {
-			let index = uniqueData.indexOf(d.lat_bin+','+d.lon_bin);
-			uniqueJSON[index].zones.push({'layer': d.depth_layer.split(' ')[0], 'community_id': +d.predicted_community_id});
-		});
-
-		console.log(uniqueJSON)
-	});
+	let data = e.target.__data__[2];
+	console.log(data.zones.map(d => +d.community_id));
 }
 
 function onlyUnique(value, index, array) {
   return array.indexOf(value) === index;
 }
 
-Promise.all([initMap(), loadLocData()]).then(data => {
+Promise.all([initMap(), loadLocData(), loadCommData()]).then(data => {
 	svgData = data[0];
 	drawCoordData(svgData);
 	drawContinentMasks(svgData);
