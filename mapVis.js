@@ -9,18 +9,27 @@ const projection = d3.geoEqualEarth().fitExtent(
 		[width - 2, height]
 	],
 	{ type: "Sphere" }
-)
-.rotate([-180,0]);
+).rotate([-180,0]);
 
 function checkUnique(coord, index, array) {
   return index === array.findIndex((d) => (d.lat === coord.lat && d.lon === coord.lon));
 }
 
-async function loadLocData() {
+// Load unfiltered data
+async function loadUFLocData() {
 	// Pull filtered location data from filtered file
-  return d3.csv("data/uniqueCoordinates.csv").then(data => {
+  return d3.csv("data/predicted_communities.csv").then(data => {
 		console.log("Data loaded");
-		return data.map(d => {return {'lat': +d.lat, 'lon': +d.lon}});;
+		return data.map(d => {return {'lat': +d.lat_bin, 'lon': +d.lon_bin}});
+	});
+}
+
+// Load filtered data
+async function loadFLocData() {
+	// Pull filtered location data from filtered file
+  return d3.json("data/predicted_community_data.json").then(data => {
+		console.log("Data loaded");
+		return data;
 	});
 }
 
@@ -78,21 +87,27 @@ function svgOnClick(e) {
 	console.log(coords);
 }
 
+// Load data into compact JSON (predicted_community_data.json)
 async function loadUData() {
 	return d3.csv("data/predicted_communities.csv").then(data => {
 		// Turn CSV into lat/lon JSON
-		lon_lat = data.map(d => {return {'lat': +d.lat_bin, 'lon': +d.lon_bin}});
+		let lat_lon = data.map(d => {return {'lat': +d.lat_bin, 'lon': +d.lon_bin}});
 
 		// Filter JSON array for only unique values
-		let uniqueData = lon_lat.filter(onlyUnique);
+		let uniqueData = lat_lon.map(d => d.lat + ',' + d.lon).filter(onlyUnique);
 
 		// Create new JSON storing system
-		let uniqueJSON = [...Array(uniqueData.length).map((d,i) => {return {'lat': uniqueData[i].lat, 'lon': uniqueData[i].lon, 'zones': []}})];
-
-		data.forEach(d => {
-			
+		let uniqueJSON = [...Array(uniqueData.length).keys()].map(d => {
+			let _d = uniqueData[d].split(','); return {'lat': _d[0], 'lon': _d[1], 'zones': []}
 		});
 
+		// Combine data into new JSON storing system
+		data.forEach(d => {
+			let index = uniqueData.indexOf(d.lat_bin+','+d.lon_bin);
+			uniqueJSON[index].zones.push({'layer': d.depth_layer.split(' ')[0], 'community_id': d.predicted_community_id});
+		});
+
+		console.log(uniqueJSON)
 	});
 }
 
@@ -100,7 +115,7 @@ function onlyUnique(value, index, array) {
   return array.indexOf(value) === index;
 }
 
-Promise.all([initMap(), loadLocData()]).then(data => {
+Promise.all([initMap(), loadFLocData()]).then(data => {
 	drawCoordData(data[0], data[1]);
 	drawContinentMasks(data[0]);
 })
