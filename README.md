@@ -1,4 +1,4 @@
-Final Project - Interactive Data Visualization  
+Final Project - Marine Diversity Dive
 ===
 
 * Edit 04-Feb-2025 -> adding link to a Notion doc of ideas (totally optional, mainly ideas collected from recent convos w/ people) -> https://scented-flock-323.notion.site/Project-Ideas-18fcf1e51ce380f79f92d4faf3ae7b4a?pvs=4
