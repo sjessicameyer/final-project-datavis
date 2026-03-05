@@ -118,8 +118,6 @@ function updateVisualization(layerName) {
 	
 	vis.transition().duration(1000)
 		 .style("background-color", layer.color);
-		 
-	vis.text(`Visualizing: ${layer.name} (${state.selectedLocation})`);
 	
 	// TODO: Render specific D3 charts for this layer here
 }
