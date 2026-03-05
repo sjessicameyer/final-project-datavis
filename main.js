@@ -22,20 +22,30 @@ function setupDiveVisualization() {
 	const container = d3.select("#scroll-content");
 	//clear container prev contents
 	container.html("");
+
+	let locationData = state.locationDataState[state.locationDataState.map(d => d.lat + ',' + d.lon).indexOf(state.selectedLocation[0]+','+state.selectedLocation[1])];
 	
-	state.layers.forEach(layer => {
+	for (let i = 0; i < locationData.zones.length; i++) {
+		let layer = state.layers[i];
+		let community = state.communityDataState[locationData.zones[i].community_id-1].data;
+
 		const step = container.append("div")
+			.attr("id", layer.name)
 			.attr("class", "step")
 			.attr("data-layer", layer.name);
-			
+		
+		// Draw info box
 		step.append("div")
 			.attr("class", "step-content")
 			.html(`
 				<h2>${layer.name}</h2>
 				<p>Depth: ${layer.depth}</p>
-				<p>Diversity data visualization goes here.</p>
+				<p>Common species at this depth include:</p>
+				<ul>
+					${[...Array(community.length).keys()].map(i => '<li>'+community[i].species+'</li>').join('')}
+				</ul>
 			`);
-	});
+	}
 
 	// Intersection Observer for scrollytelling
 	const observer = new IntersectionObserver((entries) => {

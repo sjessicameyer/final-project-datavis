@@ -1,5 +1,5 @@
 // Load location data into compact JSON (predicted_community_data.json)
-async function loadUData() {
+async function loadLData() {
 	return d3.csv("data/predicted_communities.csv").then(data => {
 		// Turn CSV into lat/lon JSON
 		let lat_lon = data.map(d => {return {'lat': +d.lat_bin, 'lon': +d.lon_bin}});

@@ -1,5 +1,5 @@
 // Global state
-const state = {
+let state = {
 	selectedLocation: null,
 	locationDataState: null,
 	communityDataState: null,
