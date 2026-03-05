@@ -116,3 +116,4 @@ The project uses a static site structure with:
 - D3.js
 - DuckDB
 - R packages: `dplyr`, `tidyr`, `class`, `ggplot2`, `sf`, `marmap`
+- Neal fun deep sea visualization https://neal.fun/deep-sea/ 

@@ -39,6 +39,7 @@ function startDive() {
 	element.scrollIntoView({ behavior: 'smooth' });
 
 	setupDiveVisualization();
+	createBubbles();
 }
 
 function setupDiveVisualization() {
@@ -57,6 +58,19 @@ function setupDiveVisualization() {
 			.attr("id", layer.name)
 			.attr("class", "step")
 			.attr("data-layer", layer.name);
+
+		// Add waves to the first layer (surface)
+		if (i === 0) {
+			step.append("div")
+				.attr("class", "wave-container")
+				.html(`
+					<svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 15 150 40" preserveAspectRatio="none" shape-rendering="auto">
+						<defs><path id="gentle-wave" d="M-160 44c30 0 58-25 88-25s 58 25 88 25 58-25 88-25 58 25 88 25 v44h-352z" /></defs>
+						<g class="wave-group">
+							<use xlink:href="#gentle-wave" x="48" y="7" fill="#dcf4ff" />
+						</g>
+					</svg>`);
+		}
 
 		// Draw info box
 		step.append("div")
@@ -124,4 +138,24 @@ function updateVisualization(layerName) {
 		 .style("background-color", layer.color);
 	
 	// TODO: Render specific D3 charts for this layer here
+}
+
+function createBubbles() {
+	const container = d3.select("#vis-sticky");
+	container.selectAll(".bubble-container").remove();
+
+	const bubbleContainer = container.append("div")
+		.attr("class", "bubble-container");
+
+	for (let i = 0; i < 100; i++) {
+		let size = (Math.random() * 15 + 5) + "px";
+		bubbleContainer.append("div")
+			.attr("class", "bubble")
+			.style("left", Math.random() * 100 + "%")
+			.style("width", size)
+			.style("height", size)
+			.style("animation-duration", (Math.random() * 10 + 10) + "s")
+			.style("animation-delay", (Math.random() * 10) + "s")
+			.style("opacity", Math.random() * 0.5 + 0.4);
+	}
 }

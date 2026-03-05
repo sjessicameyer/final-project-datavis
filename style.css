@@ -33,7 +33,7 @@ body, html {
 /* Map Section */
 #map-section {
     height: 100vh;
-    background-color: #f0f8ff;
+    background-color: #dcf4ff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -82,17 +82,6 @@ body, html {
 
 #dive-section {
     position: relative;
-}
-
-#dive-banner {
-    position: relative;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    text-align: center;
-    padding: 1rem 0;
 }
 
 #vis-sticky {
@@ -223,4 +212,60 @@ li {
     color: #3399cc;
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
+}
+
+/* Wave Animation */
+.wave-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.waves {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: rotate(180deg); /* Flip to make it look like sky */
+}
+
+.wave-group > use {
+    animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+    stroke: white;
+    stroke-width: 2px;
+}
+
+@keyframes move-forever {
+    0% { transform: translate3d(-90px,0,0); }
+    100% { transform: translate3d(85px,0,0); }
+}
+
+/* Bubbles */
+.bubble-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.bubble {
+    position: absolute;
+    bottom: -50px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    filter: blur(2px);
+    animation: rise infinite ease-in;
+}
+
+@keyframes rise {
+    0% { bottom: -50px; transform: translateX(0); }
+    50% { transform: translateX(30px); }
+    100% { bottom: 110%; transform: translateX(-30px); }
 }
