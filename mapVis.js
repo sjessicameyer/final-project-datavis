@@ -130,7 +130,6 @@ function drawContinentMasks(svgData) {
 function svgOnClick(e) {
 	let data = e.target.__data__[2];
 	state.selectedLocation = [data.lat, data.lon];
-	console.log(data);
 	startDive();
 }
 
