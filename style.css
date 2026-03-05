@@ -48,6 +48,7 @@ body, html {
     align-items: center;
     cursor: pointer;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    position: relative;
 }
 
 /* Dive Section */
@@ -60,8 +61,7 @@ body, html {
 }
 
 #dive-banner {
-    position: absolute;
-    top: 0;
+    position: relative;
     left: 0;
     width: 100%;
     z-index: 10;
@@ -109,4 +109,32 @@ body, html {
     border-radius: 8px;
     max-width: 300px;
     pointer-events: auto;
+}
+
+.zoom-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.zoom-controls button {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    background: white;
+    border: 1px solid #999;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.zoom-controls button:hover {
+    background: #f0f0f0;
 }

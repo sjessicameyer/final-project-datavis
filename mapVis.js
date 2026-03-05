@@ -13,12 +13,12 @@ let state = {
 
 // SVG Constants
 const width = d3.select("#map-container").node().clientWidth;
-const height = width / 2;
+const height = d3.select("#map-container").node().clientHeight;
 
 const projection = d3.geoEqualEarth().fitExtent(
 	[
 		[2, 2],
-		[width - 2, height]
+		[width - 2, height - 2]
 	],
 	{ type: "Sphere" }
 ).rotate([-180,0]);
@@ -68,6 +68,25 @@ async function initMap() {
 				mapGroup.attr("transform", event.transform);
 			});
 		svg.call(zoom); // Apply zoom behavior to the SVG
+
+		// Add Zoom Buttons
+		const controls = d3.select("#map-container")
+			.append("div")
+			.attr("class", "zoom-controls");
+
+		controls.append("button")
+			.text("+")
+			.on("click", (e) => {
+				e.stopPropagation();
+				svg.transition().call(zoom.scaleBy, 1.3);
+			});
+
+		controls.append("button")
+			.text("−")
+			.on("click", (e) => {
+				e.stopPropagation();
+				svg.transition().call(zoom.scaleBy, 1 / 1.3);
+			});
 
 		return { "svg": svg, "land": land, "path": path, "mapGroup": mapGroup };
 	});

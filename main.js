@@ -12,15 +12,18 @@ function randomInRange(min, max) {
 }
 
 function randomFish(species) {
-	let rand = Math.floor(Math.random() * 1000) + 1;
+	let total = species.reduce((acc, curr) => acc + (curr.avg_abundance || curr.rate || 0), 0);
+	let rand = Math.random() * total;
 	let runningTotal = 0;
 
 	for (let i = 0; i < species.length; i++) {
-		if (species[i].rate + runningTotal >= rand) {
+		let val = species[i].avg_abundance || species[i].rate || 0;
+		if (val + runningTotal >= rand) {
 			return i;
 		}
-		runningTotal += species[i].rate;
+		runningTotal += val;
 	}
+	return 0;
 }
 
 function startDive() {
@@ -71,7 +74,7 @@ function setupDiveVisualization() {
 			.attr("style", "max-width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: -1;");
 
 		const fishGroup = svg.append("g").attr("id", "fish");
-		for (let i = 0; i < 100; i++) {
+		for (let j = 0; j < 100; j++) {
 			let fishIndex = randomFish(community);
 			let size = 20;
 
