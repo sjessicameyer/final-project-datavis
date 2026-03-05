@@ -3,6 +3,8 @@ let state = {
 	selectedLocation: null,
 	locationDataState: null,
 	communityDataState: null,
+	maxCommunityId: 0,
+	currentMapLayer: "Epipelagic Zone",
 	layers: [
 		{ name: "Epipelagic Zone", depth: "0-200m", color: "#66ccff" },
 		{ name: "Mesopelagic Zone", depth: "200-1000m", color: "#3399cc" },
@@ -28,6 +30,14 @@ async function loadLocData() {
 	// Pull filtered location data from filtered file
 	return d3.json("data/predicted_community_data.json").then(data => {
 		state.locationDataState = data;
+		// Calculate max community ID for color scale
+		data.forEach(d => {
+			if (d.zones) {
+				d.zones.forEach(z => {
+					if (z.community_id > state.maxCommunityId) state.maxCommunityId = z.community_id;
+				});
+			}
+		});
 		return;
 	});
 };
@@ -88,6 +98,23 @@ async function initMap() {
 				svg.transition().call(zoom.scaleBy, 1 / 1.3);
 			});
 
+		// Add Layer Controls
+		const layerControls = d3.select("#map-container")
+			.append("div")
+			.attr("class", "layer-controls");
+
+		state.layers.forEach(layer => {
+			layerControls.append("button")
+				.text(layer.name)
+				.attr("class", layer.name === state.currentMapLayer ? "active" : "")
+				.on("click", (e) => {
+					state.currentMapLayer = layer.name;
+					d3.selectAll(".layer-controls button").classed("active", false);
+					d3.select(e.target).classed("active", true);
+					updateMapColors();
+				});
+		});
+
 		return { "svg": svg, "land": land, "path": path, "mapGroup": mapGroup };
 	});
 }
@@ -120,9 +147,84 @@ function drawCoordData(svgData) {
 	.selectAll("path")
 	.data(projectedPoints)
 	.join("path")
+		.attr("class", "voronoi-cell")
 		.attr("d", (d, i) => voronoi.renderCell(i))
 		.on("click", svgOnClick)
 	.style("cursor", "crosshair");
+
+	updateMapColors();
+	drawLegend(svgData.svg);
+}
+
+function updateMapColors() {
+	const layerIndex = state.layers.findIndex(l => l.name === state.currentMapLayer);
+	const colorScale = d3.scaleSequential(t => d3.color(d3.interpolateTurbo(t)).darker(0.4))
+		.domain([0, state.maxCommunityId || 20]);
+
+	d3.selectAll(".voronoi-cell")
+		.transition().duration(500)
+		.attr("fill", d => {
+			if (d[2].zones && d[2].zones[layerIndex]) {
+				return colorScale(d[2].zones[layerIndex].community_id);
+			}
+			return "#ccc";
+		});
+}
+
+function drawLegend(svg) {
+	const legendWidth = 300;
+	const legendHeight = 15;
+	
+	// Remove existing legend if any
+	svg.select(".map-legend").remove();
+
+	const legend = svg.append("g")
+		.attr("class", "map-legend")
+		.attr("transform", `translate(20, ${height - 50})`);
+
+	// Legend Title
+	legend.append("text")
+		.attr("x", 0)
+		.attr("y", -8)
+		.style("font-size", "12px")
+		.style("font-weight", "bold")
+		.style("font-family", "sans-serif")
+		.text("Ecological Community ID");
+
+	// Create gradient
+	let defs = svg.select("defs");
+	if (defs.empty()) {
+		defs = svg.append("defs");
+	}
+	const linearGradient = defs.append("linearGradient")
+		.attr("id", "legend-gradient");
+
+	linearGradient.selectAll("stop")
+		.data(d3.range(0, 1.05, 0.05))
+		.enter().append("stop")
+		.attr("offset", d => d)
+		.attr("stop-color", d => d3.color(d3.interpolateTurbo(d)).darker(0.4));
+
+	// Draw the rectangle
+	legend.append("rect")
+		.attr("width", legendWidth)
+		.attr("height", legendHeight)
+		.style("fill", "url(#legend-gradient)");
+
+	// Add axis
+	const scale = d3.scaleLinear()
+		.domain([0, state.maxCommunityId || 20])
+		.range([0, legendWidth]);
+
+	const axis = d3.axisBottom(scale)
+		.ticks(5)
+		.tickSize(5);
+
+	legend.append("g")
+		.attr("transform", `translate(0, ${legendHeight})`)
+		.call(axis)
+		.style("font-family", "sans-serif")
+		.select(".domain").remove();
 }
 
 // Draw continents and border as unclickable masks
