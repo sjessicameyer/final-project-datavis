@@ -68,7 +68,7 @@ function setupDiveVisualization() {
 			.attr("width", window.innerWidth)
 			.attr("height", window.innerHeight)
 			.attr("viewBox", [0, 0, window.innerWidth, window.innerHeight])
-			.attr("style", "max-width: 100%; height: 100vh; position: absolute; left: 0;");
+			.attr("style", "max-width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: -1;");
 
 		const fishGroup = svg.append("g").attr("id", "fish");
 		for (let i = 0; i < 100; i++) {

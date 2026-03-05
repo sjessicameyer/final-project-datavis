@@ -85,6 +85,12 @@ body, html {
     font-size: 2rem;
 }
 
+#scroll-content {
+    position: relative;
+    z-index: 1;
+    margin-top: -100vh;
+}
+
 .step {
     position: relative;
     z-index: 1;
@@ -97,16 +103,10 @@ body, html {
 }
 
 .step-content {
-		position: relative;
-		z-index: 5;
     background: rgba(0, 0, 0, 0.7);
     color: white;
     padding: 20px;
     border-radius: 8px;
     max-width: 300px;
     pointer-events: auto;
-}
-
-li {
-  color: var(--fish-color);
 }
