@@ -56,16 +56,64 @@ body, html {
     text-align: center;
 }
 
-.instructions {
-    margin-top: 1rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding: 1.5 rem;
-    background: rgba(255, 255, 255, 0.6);
+#help-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#help-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #999;
+    background: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    color: #333;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#help-btn:hover {
+    background: #f0f0f0;
+}
+
+#help-content {
+    margin-top: 10px;
+    width: 280px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
     border-radius: 8px;
-    border-left: 4px solid #3399cc;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    font-size: 14px;
     text-align: left;
-    display: inline-block;
+    color: #333;
+}
+
+#help-content h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #3399cc;
+    font-size: 16px;
+}
+
+#help-content ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+#help-content li {
+    margin-bottom: 5px;
+    color: #333;
 }
 
 #map-container {

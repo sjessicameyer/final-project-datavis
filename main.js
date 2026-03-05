@@ -9,6 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	document.getElementById("info-btn").addEventListener("click", () => {
 		document.getElementById("methodology-section").scrollIntoView({ behavior: "smooth" });
 	});
+
+	document.getElementById("help-btn").addEventListener("click", () => {
+		document.getElementById("help-content").classList.toggle("hidden");
+	});
 });
 
 function randomInRange(min, max) {
