@@ -58,14 +58,24 @@ async function initMap() {
 
 		document.getElementById("map-container").append(svg.node());
 
-		return { "svg": svg, "land": land, "path": path };
+		// Create a group element for all map features to apply zoom transformations
+		const mapGroup = svg.append("g");
+
+		// Define zoom behavior
+		const zoom = d3.zoom()
+			.scaleExtent([1, 8]) // Allow zooming from 1x to 8x
+			.on("zoom", (event) => {
+				mapGroup.attr("transform", event.transform);
+			});
+		svg.call(zoom); // Apply zoom behavior to the SVG
+
+		return { "svg": svg, "land": land, "path": path, "mapGroup": mapGroup };
 	});
 }
 
 // Draw coordinates onto map
 function drawCoordData(svgData) {
-	// clip shaped as globe
-	svgData.svg.append("defs").append("clipPath")
+	svgData.mapGroup.append("defs").append("clipPath") // Append to mapGroup
 		.attr("id", "globe-clip")
 		.append("path")
 		.datum({ type: "Sphere" })
@@ -84,7 +94,7 @@ function drawCoordData(svgData) {
 	const voronoi = delaunay.voronoi([0, 0, width, height]);
 
 	// draw the Voronoi cells and apply the clip path
-	svgData.svg.append("g")
+	svgData.mapGroup.append("g") // Append to mapGroup
 		.attr("clip-path", "url(#globe-clip)") 
 		.attr("fill", "transparent")
 		.style("pointer-events", "all")
@@ -99,16 +109,16 @@ function drawCoordData(svgData) {
 // Draw continents and border as unclickable masks
 function drawContinentMasks(svgData) {
 	// Draw continents
-	svgData.svg.append("g")
+	svgData.mapGroup.append("g") // Append to mapGroup
 		.selectAll("path")
 		.data(svgData.land.features)
 		.join("path")
 		.attr("fill", "#d9d9d9")
 		.attr("d", svgData.path)
 		.style("cursor", "default");
-
+	
 	// Draw background
-	svgData.svg.append("path")
+	svgData.mapGroup.append("path") // Append to mapGroup
 		.datum({ type: "Sphere" })
 		.attr("fill", "none")
 		.attr("stroke", "currentColor")

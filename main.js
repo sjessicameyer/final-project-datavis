@@ -62,6 +62,11 @@ function setupDiveVisualization() {
 	document.querySelectorAll('.step').forEach(step => {
 		observer.observe(step);
 	});
+
+	// Manually trigger update for the first layer to ensure correct initial state
+	if (locationData && locationData.zones.length > 0) {
+		updateVisualization(state.layers[0].name);
+	}
 }
 
 function updateVisualization(layerName) {
