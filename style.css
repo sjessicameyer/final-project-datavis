@@ -97,10 +97,16 @@ body, html {
 }
 
 .step-content {
+		position: relative;
+		z-index: 5;
     background: rgba(0, 0, 0, 0.7);
     color: white;
     padding: 20px;
     border-radius: 8px;
     max-width: 300px;
     pointer-events: auto;
+}
+
+li {
+  color: var(--fish-color);
 }
