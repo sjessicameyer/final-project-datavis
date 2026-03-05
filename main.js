@@ -5,6 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		drawCoordData(svgData);
 		drawContinentMasks(svgData);
 	});
+
+	document.getElementById("info-btn").addEventListener("click", () => {
+		document.getElementById("methodology-section").scrollIntoView({ behavior: "smooth" });
+	});
 });
 
 function randomInRange(min, max) {

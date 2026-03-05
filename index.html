@@ -9,6 +9,7 @@
 	<script src="https://unpkg.com/topojson@3"></script>
 </head>
 <body>
+	<button id="info-btn" title="Methodology & Model Info">i</button>
 	<div id="app">
 		<section id="map-section">
 			<div id="map-layout">
@@ -36,6 +37,31 @@
 			</div>
 			<div id="vis-sticky"></div>
 			<div id="scroll-content"></div>
+		</section>
+
+		<!-- Section 3: Methodology -->
+		<section id="methodology-section">
+			<div class="content-wrapper">
+				<h2>Methodology & Model</h2>
+				<p>
+					This visualization is powered by a predictive model of marine ecological communities derived from the 
+					<strong>Ocean Biodiversity Information System (OBIS)</strong>.
+				</p>
+				
+				<h3>Data Processing</h3>
+				<p>
+					Raw species occurrence data was filtered into four depth zones: Epipelagic (0-200m), Mesopelagic (200-1000m), 
+					Bathypelagic (1000-4000m), and Abyssopelagic (4000m+). For each zone, we identified the top 100 most abundant species 
+					to characterize the community structure.
+				</p>
+
+				<h3>Clustering & Prediction</h3>
+				<p>
+					We applied <strong>K-Means clustering</strong> to Hellinger-transformed abundance matrices to identify distinct 
+					ecological communities. To create a continuous global map, we used <strong>K-Nearest Neighbors (KNN)</strong> spatial interpolation 
+					based on 3D coordinates derived from latitude and longitude.
+				</p>
+			</div>
 		</section>
 	</div>
 
