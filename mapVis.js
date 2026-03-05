@@ -99,20 +99,19 @@ async function initMap() {
 			});
 
 		// Add Layer Controls
-		const layerControls = d3.select("#map-container")
-			.append("div")
-			.attr("class", "layer-controls");
+		const layerSelect = d3.select("#map-container")
+			.append("select")
+			.attr("class", "layer-selector")
+			.on("change", (e) => {
+				state.currentMapLayer = e.target.value;
+				updateMapColors();
+			});
 
 		state.layers.forEach(layer => {
-			layerControls.append("button")
+			layerSelect.append("option")
 				.text(layer.name)
-				.attr("class", layer.name === state.currentMapLayer ? "active" : "")
-				.on("click", (e) => {
-					state.currentMapLayer = layer.name;
-					d3.selectAll(".layer-controls button").classed("active", false);
-					d3.select(e.target).classed("active", true);
-					updateMapColors();
-				});
+				.attr("value", layer.name)
+				.property("selected", layer.name === state.currentMapLayer);
 		});
 
 		return { "svg": svg, "land": land, "path": path, "mapGroup": mapGroup };

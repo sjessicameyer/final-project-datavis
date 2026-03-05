@@ -47,6 +47,9 @@ function setupDiveVisualization() {
 	//clear container prev contents
 	container.html("");
 
+	// Clear any legacy sea floor from sticky container
+	d3.select("#vis-sticky").selectAll(".sea-floor").remove();
+
 	let locationData = state.locationDataState[state.locationDataState.map(d => d.lat + ',' + d.lon).indexOf(state.selectedLocation[0]+','+state.selectedLocation[1])];
 	let fishColors = ["#ffc265", "#ffafd1", "#68ba86", "#d5cce9", "#9fcf7f"]
 
@@ -70,6 +73,40 @@ function setupDiveVisualization() {
 							<use xlink:href="#gentle-wave" x="48" y="7" fill="#dcf4ff" />
 						</g>
 					</svg>`);
+		}
+
+		// Add sea floor to the last layer
+		if (i === locationData.zones.length - 1) {
+			const seaFloor = step.append("div")
+				.attr("class", "sea-floor")
+				.html(`
+					<svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+						<defs>
+							<linearGradient id="sand-gradient" x1="0" x2="0" y1="1" y2="0">
+								<stop offset="0%" stop-color="#b3a270"/>
+								<stop offset="100%" stop-color="#c2b280"/>
+							</linearGradient>
+						</defs>
+						<path d="M0,60 Q16,50 33,60 T66,70 T100,60 V100 H0 Z" fill="url(#sand-gradient)" />
+					</svg>
+				`);
+
+			// Add pebbles
+			for (let k = 0; k < 20; k++) {
+				let w = Math.random() * 30 + 60;
+				let h = Math.random() * 15 + 30;
+				let l = Math.random() * 100;
+				let b = Math.random() * 40
+				let borderRadius = `${randomInRange(40,60)}% ${randomInRange(40,60)}% ${randomInRange(40,60)}% ${randomInRange(40,60)}% / ${randomInRange(40,60)}% ${randomInRange(40,60)}% ${randomInRange(40,60)}% ${randomInRange(40,60)}%`;
+				step.append("div")
+					.attr("class", "pebble")
+					.style("left", `calc(${l}% - ${w/2}px)`)
+					.style("width", w + "px")
+					.style("height", h + "px")
+					.style("bottom", b + "px")
+					.style("background-color", ["#615a5a", "#5a5353", "#706666", "#4a4545"][Math.floor(Math.random() * 4)])
+					.style("border-radius", borderRadius);
+			}
 		}
 
 		// Draw info box
