@@ -5,7 +5,10 @@ The ocean covers 70% of our planet, yet the deep sea remains largely unexplored.
 
 ## Related Work
 *   **OBIS (Ocean Biodiversity Information System)**: The primary source of our data and an inspiration for global-scale marine mapping.d
-*   **"The Deep Sea" by Neal.fun**: Inspired the vertical scrolling interaction to represent depth.
+*   **"The Deep Sea" by Neal.fun**: Inspired the vertical scrolling interaction to represent depth. We admired the visual aesthetic details like the bubbles and the waves and used many of the same ideas in this project.
+
+![Image of ref 1 page](assets/ref_1.png)
+![Image 2 of ref 1 page](assets/ref_2.png)
   
 ## Questions
 1.  **How does species composition change with depth?** We wanted to see if the dominant species in the surface layer are completely different from those in the abyss.
@@ -115,8 +118,31 @@ We started adding color coding to all the fish. At this point you can also start
 ![Image of methodology](assets/methodology.png)
 We also added a section for methodology, so the user has the option to understand more about how our data was created.
 
+![Image of final draft](assets/final_draft.png)
+We finally implemented moving fish, a nav bar, and uploaded our video and all additional content for the project. It looked pretty good after significant trouble shooting for making sure every svg is in the right position and turns in the correct way.
+
 ## Implementation
-*Describe the intent and functionality of the interactive visualizations you implemented. Provide clear and well-referenced images showing the key design and interaction elements.*
+The implementation of **Marine Diversity Dive** focuses on translating complex, multi-dimensional biological data into a seamless, vertical storytelling experience. The core challenge was synchronizing a global spatial map with a localized "depth dive" visualization.
+
+### 1. Interactive Global Map
+The entry point of the application is a high-performance geographic visualization built using **D3.js** and **D3-Delaunay**. 
+ 
+* **Depth Layer Toggling**: Users can switch between the four ocean zones (Epipelagic to Abyssopelagic). This updates the fill color of the grid cells based on the `predicted_community_id`, allowing users to see how ecological boundaries shift spatially as they move deeper.
+* **Coordinate Selection**: Clicking the map captures the latitude and longitude, which then filters the `predicted_communities.csv` to customize the subsequent "Dive" experience.
+* **Zoom In/Out and Panning**: Users can zoom in, out, and pan across the map to see data more closely and control their view of the map.
+
+![Image of first page](assets/first_page.png)
+
+### 2. The "Scrollytelling" Dive
+The transition from the map to the deep sea is intended to give the user a more intiutive, immersive experience that feels like they are participating in the visualization rather than just observing it. To make the dive feel alive, we implemented several elements
+
+* **Accurate relative size and abundance**: Users will see fish and plants scaled to relative size and abundance for easy viewing and interpretation that simulates a real life dive. This form of viewing requires no previous knowledge of data interpretation and is accessible to all viewers, including children. Tiny organisms have a minimum size to ensure visibility.
+* **Color coded SVG Fish and Plants**: Fish and plants are visible as SVG that is pulled from the PhyloPic API to ensure every fish and plant has a visual that represents the true diversity of the ocean. These SVGs are color coded for easy interpretation.
+* **Moving fish and stationary plants**: The fish move and swim accross the scene while plants are stationary to best simulate the diving experience and make it immersive.
+* **Gradient as the user scrolls down**: The gradient darkens as the user scrolls down to cue environmental changes that would occur, like less light, and create a perception of depth without actually being underwater.
+* **Sand, waves, bubbles, and other decoration**: Realistic ocean visuals and decorations like sand, waves, bubbles, and more were polished to make the visual feel clean, immersive, and visually satistfying.
+
+![Image of final draft](assets/final_draft.png)
 
 ### Architecture
 The project uses a static site structure with:
