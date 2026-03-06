@@ -6,15 +6,16 @@ library(sf)
 library(marmap)
 
 candidates <- c(
-  "ocean_ecological_zones_FINAL.csv",
-  "data/ocean_ecological_zones_FINAL.csv",
-  "../ocean_ecological_zones_FINAL.csv"
+  "raw_species_data.csv",
+  "data/raw_species_data.csv",
+  "data/unformatted_data/raw_species_data.csv",
+  "../raw_species_data.csv"
 )
 
 input_file <- candidates[file.exists(candidates)][1]
 
 if (is.na(input_file)) {
-  stop("Error: Input file 'ocean_ecological_zones_FINAL.csv' not found. Run pull_data.r first or check your working directory.")
+  stop("Error: Input file 'raw_species_data.csv' not found. Run pull_data.r first or check your working directory.")
 }
 
 # Set output directory to match input file location
@@ -65,10 +66,16 @@ for (zone in levels(raw_data$depth_layer)) {
   
   if (nrow(zone_data) == 0) next
   
-  # Identify valid species for this zone (must have > 5% of their population here)
+  # Identify valid species for this zone (must have > 20% of their population here)
   valid_species <- species_profiles %>%
-    filter(depth_layer == zone, prop >= 0.05) %>%
-    pull(species)
+      filter(depth_layer == zone, prop >= 0.20) %>% 
+      pull(species)
+  
+  # Prune surface-only taxa from deep zones
+  if (zone %in% c("Bathypelagic Zone", "Abyssopelagic Zone")) {
+    surface_taxa <- c("Stenella", "Scomber", "Delphinus", "Tursiops", "Clupea", "Mallotus")
+    valid_species <- valid_species[!grepl(paste(surface_taxa, collapse="|"), valid_species)]
+  }
 
   # 2. Identify top species JUST for this zone (prevents surface fish from dominating deep zones)
   top_species <- zone_data %>%
@@ -97,7 +104,13 @@ for (zone in levels(raw_data$depth_layer)) {
   # Normalize (Hellinger Transformation for better ecological clustering)
   mat <- as.matrix(site_matrix %>% select(-lat_bin, -lon_bin))
   row_sums <- rowSums(mat)
-  mat_norm <- sqrt(mat / ifelse(row_sums == 0, 1, row_sums))
+  # Use the square root only for the surface where data is cleaner
+  if (zone == "Epipelagic Zone") {
+    mat_norm <- sqrt(mat / ifelse(row_sums == 0, 1, row_sums))
+  } else {
+    # For deep zones, use raw relative abundance to prevent magnifying noise
+    mat_norm <- mat / ifelse(row_sums == 0, 1, row_sums)
+  }
   
   # 4. Cluster (K-Means) with Spatial Balancing
   set.seed(42)
@@ -184,6 +197,7 @@ for (zone in levels(raw_data$depth_layer)) {
     pivot_longer(-community_id, names_to = "species", values_to = "avg_abundance") %>%
     filter(avg_abundance > 0) %>% # This removes any species that are completely absent
     group_by(community_id) %>%
+    filter(avg_abundance > 0.1) %>%
     slice_max(avg_abundance, n = 5, with_ties = FALSE) %>% # This forces a strict cut-off at 5
     arrange(community_id, desc(avg_abundance))
   
