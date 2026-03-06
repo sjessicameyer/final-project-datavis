@@ -107,7 +107,14 @@ The model also stil wasn't perfect. As we began to implement the visualization, 
 ![Image of plant bug](assets/plant_bug.png)
 Another issue was that plants, and even some animals (like coral!) do not swim like the fish we were implementing. So, we had to work out a way to keep plants and corals on the ground.
 
-At this point you can also start to see that Sarah was adding decorations such as waves, bubbles, pebbles, and small sand dunes to enhance the visual appeal.
+![Image of first page](assets/first_page.png)
+We finally completed our first page of the website with a really nice map. The user is able to toggle between different layers to see all the ecological communities that we identified, which are color coded. We also added final map functionalities including the more information button, zoom in/ zoom out, and ability to pan.
+
+![Image of color coding](assets/color_coding.png)
+We started adding color coding to all the fish. At this point you can also start to see that Sarah was adding decorations such as waves, bubbles, pebbles, and small sand dunes to enhance the visual appeal. The project started to feel like it was coming together, with one main caveat: the NCBI rate limiting was so severe that we were unable to consistently load the right assets. 
+
+![Image of methodology](assets/methodology.png)
+We also added a section for methodology, so the user has the option to understand more about how our data was created.
 
 ## Implementation
 *Describe the intent and functionality of the interactive visualizations you implemented. Provide clear and well-referenced images showing the key design and interaction elements.*
