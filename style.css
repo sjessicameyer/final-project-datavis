@@ -6,30 +6,6 @@ body, html {
     height: 100%;
 }
 
-#info-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 100;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px solid #ccc;
-    background: white;
-    font-family: serif;
-    font-style: italic;
-    font-weight: bold;
-    font-size: 20px;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    color: #3399cc;
-    transition: transform 0.2s;
-}
-
-#info-btn:hover {
-    transform: scale(1.1);
-}
-
 /* Map Section */
 #map-section {
     min-height: 100vh;
@@ -231,20 +207,56 @@ li {
     color: #333;
 }
 
+/* video Section */
+#video-section {
+    padding: 60px 20px;
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    color: #333;
+}
+
+/* process Section */
+#process-section {
+    padding: 60px 20px;
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    color: #333;
+}
+
 .content-wrapper {
     max-width: 800px;
     margin: 0 auto;
 }
 
-#methodology-section h2 {
+#methodology-section h2, 
+#video-section h2, 
+#process-section h2 {
     color: #006699;
     margin-bottom: 1rem;
 }
 
-#methodology-section h3 {
+#methodology-section h3, 
+#video-section h3, 
+#process-section h3 {
     color: #3399cc;
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
+}
+
+#process-section img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1rem auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#process-section pre {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
 }
 
 /* Wave Animation */

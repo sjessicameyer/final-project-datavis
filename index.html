@@ -8,9 +8,60 @@
 	<script src="https://d3js.org/d3.v7.min.js"></script>
 	<script src="https://unpkg.com/topojson@3"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+	<style>
+		nav {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			background-color: rgba(0, 20, 40, 0.9);
+			padding: 15px 30px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			z-index: 1000;
+			box-sizing: border-box;
+			backdrop-filter: blur(5px);
+		}
+		.nav-links {
+			display: flex;
+			gap: 15px;
+		}
+		.nav-btn {
+			background: transparent;
+			border: 1px solid rgba(255, 255, 255, 0.5);
+			color: white;
+			padding: 8px 16px;
+			cursor: pointer;
+			border-radius: 20px;
+			font-family: sans-serif;
+			font-size: 14px;
+			transition: all 0.2s ease;
+		}
+		.nav-btn:hover {
+			background: rgba(255, 255, 255, 0.1);
+			border-color: white;
+		}
+		.nav-title {
+			color: white;
+			font-family: sans-serif;
+			font-weight: bold;
+			font-size: 1.2rem;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
 </head>
 <body>
-	<button id="info-btn" title="Methodology & Model Info">i</button>
+	<nav>
+		<a class="nav-title" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">Marine Diversity Dive</a>
+		<div class="nav-links">
+			<button id="info-btn" class="nav-btn">Methodology</button>
+			<button id="process-btn" class="nav-btn">Process Book</button>
+			<button id="video-btn" class="nav-btn">Video</button>
+		</div>
+	</nav>
 	<div id="app">
 		<section id="map-section">
 			<div id="map-layout">
@@ -62,6 +113,23 @@
 					ecological communities. To create a continuous global map, we used <strong>K-Nearest Neighbors (KNN)</strong> spatial interpolation 
 					based on 3D coordinates derived from latitude and longitude.
 				</p>
+			</div>
+		</section>
+
+		<!-- Section 5: Video -->
+		<section id="video-section">
+			<div class="content-wrapper">
+				<h2>Demo Video</h2>
+				<p>A demonstration video of the project will be embedded here.</p>
+			</div>
+		</section>
+
+		<!-- Section 4: Process Book -->
+		<section id="process-section">
+			<div class="content-wrapper">
+				<h2>Process Book</h2>
+				<p>Our process book detailing the design and development journey will be available here.</p>
+				<!-- <a href="process_book.pdf" target="_blank">Download PDF</a> -->
 			</div>
 		</section>
 	</div>

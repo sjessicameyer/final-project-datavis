@@ -10,9 +10,19 @@ document.addEventListener("DOMContentLoaded", () => {
 		document.getElementById("methodology-section").scrollIntoView({ behavior: "smooth" });
 	});
 
+	document.getElementById("process-btn").addEventListener("click", () => {
+		document.getElementById("process-section").scrollIntoView({ behavior: "smooth" });
+	});
+
+	document.getElementById("video-btn").addEventListener("click", () => {
+		document.getElementById("video-section").scrollIntoView({ behavior: "smooth" });
+	});
+
 	document.getElementById("help-btn").addEventListener("click", () => {
 		document.getElementById("help-content").classList.toggle("hidden");
 	});
+
+	loadProcessBook();
 });
 
 function randomInRange(min, max) {
@@ -370,4 +380,10 @@ function animateFish(fish, fishFacingRight, fishFacingUp) {
 		.ease(d3.easeSinInOut)
 		.attr("x", endX)
 		.on("end", () => animateFish(fish, fishFacingRight, fishFacingUp));
+}
+
+function loadProcessBook() {
+	d3.text("process_book.md").then(text => {
+		document.querySelector("#process-section .content-wrapper").innerHTML = marked.parse(text);
+	}).catch(e => console.warn("Process book markdown file not found."));
 }
