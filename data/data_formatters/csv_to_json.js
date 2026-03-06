@@ -1,6 +1,16 @@
+const fs = require('fs');
+const d3 = require('d3');
+
+function onlyUnique(value, index, array) {
+  return array.indexOf(value) === index;
+}
+
 // Load location data into compact JSON (predicted_community_data.json)
 async function loadLData() {
-	return d3.csv("data/predicted_communities.csv").then(data => {
+	try {
+		const rawData = fs.readFileSync("data/unformatted_data/predicted_communities.csv", "utf8");
+		const data = d3.csvParse(rawData);
+
 		// Turn CSV into lat/lon JSON
 		let lat_lon = data.map(d => {return {'lat': +d.lat_bin, 'lon': +d.lon_bin}});
 
@@ -18,13 +28,19 @@ async function loadLData() {
 			uniqueJSON[index].zones.push({'layer': d.depth_layer.split(' ')[0], 'community_id': +d.predicted_community_id});
 		});
 
-		console.log(uniqueJSON)
-	});
+		fs.writeFileSync("data/unformatted_data/predicted_community_data.json", JSON.stringify(uniqueJSON));
+		console.log("Successfully wrote data/unformatted_data/predicted_community_data.json");
+	} catch (error) {
+		console.error("Error in loadLData:", error);
+	}
 }
 
 // Load and normalize community abundance data (community_composition.csv)
 async function loadCData() {
-	return d3.csv("data/community_composition.csv").then(data => {
+	try {
+		const rawData = fs.readFileSync("data/unformatted_data/community_composition.csv", "utf8");
+		const data = d3.csvParse(rawData);
+
 		// Grab IDs of all community groups
 		let IDs = data.map(d => +d.community_id).filter(onlyUnique);
 		
@@ -47,6 +63,12 @@ async function loadCData() {
 			})
 		})
 
-		console.log(speciesJSON)
-	});
+		fs.writeFileSync("data/unformatted_data/community_composition.json", JSON.stringify(speciesJSON));
+		console.log("Successfully wrote data/unformatted_data/community_composition.json");
+	} catch (error) {
+		console.error("Error in loadCData:", error);
+	}
 }
+
+loadLData();
+loadCData();

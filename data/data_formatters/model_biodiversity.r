@@ -6,24 +6,22 @@ library(sf)
 library(marmap)
 
 candidates <- c(
-  "raw_species_data.csv",
-  "../raw_species_data.csv",
-  "data/raw_species_data.csv"
+  "ocean_ecological_zones_FINAL.csv",
+  "data/ocean_ecological_zones_FINAL.csv",
+  "../ocean_ecological_zones_FINAL.csv"
 )
 
 input_file <- candidates[file.exists(candidates)][1]
 
 if (is.na(input_file)) {
-  stop("Error: Input file 'raw_species_data.csv' not found. Run pull_data.r first or check your working directory.")
+  stop("Error: Input file 'ocean_ecological_zones_FINAL.csv' not found. Run pull_data.r first or check your working directory.")
 }
 
-if (basename(getwd()) == "data") {
-  output_grid <- "predicted_communities.csv"
-  output_comp <- "community_composition.csv"
-} else {
-  output_grid <- "data/predicted_communities.csv"
-  output_comp <- "data/community_composition.csv"
-}
+# Set output directory to match input file location
+data_dir <- dirname(input_file)
+output_grid <- file.path(data_dir, "predicted_communities.csv")
+output_comp <- file.path(data_dir, "community_composition.csv")
+bathy_file <- file.path(data_dir, "bathy_matrix.rds")
 
 cat("Loading data from:", input_file, "\n")
 raw_data <- read.csv(input_file)
@@ -34,12 +32,23 @@ raw_data$depth_layer <- factor(raw_data$depth_layer,
 
 # --- Prepare Bathymetry for Masking ---
 cat("Loading bathymetry data to mask invalid depth zones...\n")
-if (file.exists("bathy_matrix.rds")) {
-  bathy_mtx <- readRDS("bathy_matrix.rds")
+if (file.exists(bathy_file)) {
+  bathy_mtx <- readRDS(bathy_file)
 } else {
   bathy_mtx <- getNOAA.bathy(lon1 = -180, lon2 = 180, lat1 = -90, lat2 = 90, resolution = 60)
-  saveRDS(bathy_mtx, "bathy_matrix.rds")
+  saveRDS(bathy_mtx, bathy_file)
 }
+
+# --- Pre-calculate Species Depth Distribution ---
+# This prevents surface species (like Stenella longirostris) from appearing in deep zones
+# due to data noise. We filter out species from a zone if < 5% of their total abundance is found there.
+cat("Calculating species depth profiles to filter contaminants...\n")
+species_profiles <- raw_data %>%
+  group_by(species, depth_layer) %>%
+  summarise(abundance = sum(total_abundance, na.rm = TRUE), .groups = "drop") %>%
+  group_by(species) %>%
+  mutate(total_abundance = sum(abundance), prop = abundance / total_abundance) %>%
+  ungroup()
 
 all_predictions <- list()
 all_compositions <- list()
@@ -56,8 +65,14 @@ for (zone in levels(raw_data$depth_layer)) {
   
   if (nrow(zone_data) == 0) next
   
+  # Identify valid species for this zone (must have > 5% of their population here)
+  valid_species <- species_profiles %>%
+    filter(depth_layer == zone, prop >= 0.05) %>%
+    pull(species)
+
   # 2. Identify top species JUST for this zone (prevents surface fish from dominating deep zones)
   top_species <- zone_data %>%
+    filter(species %in% valid_species) %>%
     group_by(species) %>%
     summarise(total = sum(total_abundance, na.rm = TRUE), .groups = "drop") %>%
     slice_max(total, n = 100) %>% # Top 100 species for finer granularity

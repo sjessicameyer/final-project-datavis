@@ -59,159 +59,165 @@
 "12","Calanus",82.2889733840301
 "12","Neocalanus plumchrus",56.9096958174911
 "12","Acartia",45.355513307985
-"13","Thouarella",17.9956140350877
-"13","Plumarella",15.6491228070175
-"13","Madrepora oculata",4.63157894736841
-"13","Enallopsammia rostrata",1.46052631578947
-"13","Swiftia",1.20175438596491
-"14","Beryx splendens",32.8967254408062
-"14","Metanephrops challengeri",26.2770780856424
-"14","Pyrosoma atlanticum",0.294710327455919
-"14","Pennatula",0.105793450881612
-"14","Enallopsammia rostrata",0.103274559193954
-"15","Enallopsammia rostrata",62.2264150943396
-"15","Stichopathes",50.4811320754717
-"15","Calibelemnon symmetricum",27.3867924528302
-"15","Madrepora oculata",14.3962264150943
-"15","Poecillastra",9.69811320754717
-"16","Sebastes",3632.03624733476
-"16","Clupea harengus",185.573560767592
-"16","Heteropolypus ritteri",93.6972281449895
-"16","Mallotus villosus",77.420042643923
-"16","Melanogrammus aeglefinus",58.8848614072494
-"17","Clupea harengus",2158.54541666667
-"17","Micromesistius poutassou",1605.68499999996
-"17","Trisopterus esmarkii",1159.86833333335
-"17","Scomber scombrus",1111.97125
-"17","Gadiculus argenteus",163.782083333332
-"18","Acanthogorgia",84.8387096774194
-"18","Desmophyllum dianthus",11.5806451612903
-"18","Asbestopluma",10.8870967741936
-"18","Dendrophyllia",9.93548387096774
-"18","Corallium",7.85483870967742
-"19","Dendrophyllia",121.151898734177
-"19","Parisis",106.506329113924
-"19","Calibelemnon symmetricum",50.9493670886076
-"19","Corallium",50.6455696202532
-"19","Poecillastra",42.0759493670886
-"20","Balticina",54.1288343558283
-"20","Desmophyllum dianthus",18.3006134969325
-"20","Desmophyllum pertusum",11.5122699386503
-"20","Plumarella",2.94478527607362
-"20","Acanthogorgia",1.95705521472392
-"21","Maurolicus muelleri",4202.38731856379
-"21","Sprattus sprattus",1855.64935064935
-"21","Ammodytes marinus",244.547746371277
-"21","Benthosema glaciale",228.068754774638
-"21","Melanogrammus aeglefinus",179.120702826585
-"22","Boreogadus saida",349.973581973584
-"22","Reinhardtius hippoglossoides",61.1857031857024
-"22","Mallotus villosus",33.0621600621596
-"22","Sebastes mentella",16.5971250971259
-"22","Triglops nybelini",15.0314685314681
-"23","Mallotus villosus",7772.88769855937
-"23","Gadus morhua",1368.45991872922
-"23","Clupea harengus",1177.78758773552
-"23","Melanogrammus aeglefinus",482.117473217581
-"23","Sebastes",395.340967861105
-"24","Sebastes zacentrus",54.6296296296296
-"24","Swiftia",47.5740740740741
-"24","Enallopsammia rostrata",6.79629629629629
-"24","Madrepora oculata",5.03703703703704
-"24","Dendrophyllia",4.61111111111111
-"25","Stenella longirostris",21.2416666666667
-"25","Ophiomusa lymani",14.9166666666667
-"25","Thenea",1.13333333333333
-"25","Ophiocten hastatum",0.875
-"25","Acanella",0.133333333333333
-"26","Electrona antarctica",496.592592592592
-"26","Cyclothone microdon",1.74074074074074
-"27","Umbellula",23.0338983050847
-"27","Pennatula",7.84745762711864
-"27","Protoptilum",2.76271186440678
-"27","Stauropathes",0.355932203389831
-"27","Bathypathes",0.220338983050847
-"28","Hemicorallium",285.61875
-"28","Chrysogorgia",161.80625
-"28","Poliopogon",102.1125
-"28","Narella",96.15
-"28","Trissopathes",69.4562499999999
-"29","Reinhardtius hippoglossoides",3.89970501474927
-"29","Boreogadus saida",0.292035398230087
-"29","Benthosema glaciale",0.16519174041298
-"29","Sebastes",0.138643067846607
-"29","Sebastes mentella",0.115044247787611
-"30","Retaria",117.5
-"30","Gadus morhua",0.142857142857143
-"31","Scomber scombrus",3088.22504892368
-"31","Clupea harengus",528.099804305284
-"31","Micromesistius poutassou",58.1839530332684
-"31","Cyclopterus lumpus",12.3874755381604
-"31","Melanogrammus aeglefinus",1.28180039138943
-"32","Micromesistius poutassou",462.037070524411
-"32","Clupea harengus",319.915913200721
-"32","Maurolicus muelleri",127.650994575046
-"32","Sebastes",62.0605786618434
-"32","Mallotus villosus",58.240506329113
-"33","Anthomastus",132.84
-"33","Desmophyllum dianthus",59.22
-"33","Paragorgia",52.14
-"33","Primnoa wingi",46.62
-"33","Pyloderma",17.16
-"34","Chrysogorgia",332.567307692307
-"34","Paragorgia",53.9134615384616
-"34","Hemicorallium",45.0769230769231
-"34","Anthomastus",37.7596153846154
-"34","Ramuligorgia militaris",35.7403846153846
-"35","Rimicaris",339.733333333333
-"36","Retaria",81.7083333333333
-"36","Gadus morhua",1.95833333333333
-"37","Abyssorchomene gerulicorbis",12.5666666666667
-"37","Hyalonema (Corynonema)",8.73333333333333
-"37","Monhystrella",6.73333333333333
-"37","Paralicella caperesca",5.13333333333333
-"37","Eurycope",4.16666666666667
-"38","Acantholaimus",17.25
-"38","Halalaimus",9.25
-"38","Acantholaimus veitkoehlerae",4.9
-"38","Deontolaimus",4.3
-"38","Acantholaimus maks",3.3
-"39","Retaria",109
-"40","Benthesicymus",807.704225352112
-"40","Enypniastes eximia",533.112676056338
-"40","Coryphaenoides",429.859154929577
-"40","Peniagone leander",429.718309859155
-"40","Grimpoteuthis",377.154929577465
-"41","Orchomene",1006.38461538462
-"41","Paralicella",210.923076923077
-"42","Stephanoscyphistoma",4.21621621621621
-"42","Craniella",1.54054054054054
-"42","Notoplites",0.72972972972973
-"43","Oncaea",96
-"43","Mormonilla",89.5
-"43","Oikopleura",82.75
-"43","Sagitta",59
-"43","Pleuromamma",58.5
-"44","Typhlotanais",5.94374435050779
-"44","Macrostylis",5.37085243355695
-"44","Hyalonema",4.84615384615385
-"44","Collettea",2.16361114021136
-"44","Stenotanais",2.15865428560759
-"45","Amphiophiura convexa",10.8
-"45","Axinodon bornianus",2.2
-"45","Propeamussium meridionale",1.6
-"45","Benthodytes",0.9
-"45","Laevidentalium leptosceles",0.2
-"46","Umbellula",11.1428571428571
-"46","Hyalonema",11.1428571428571
-"46","Abyssopathes",2.28571428571429
-"46","Docosaccus",1.14285714285714
-"46","Paralicella caperesca",0.285714285714286
-"47","Propeamussium meridionale",45
-"47","Monactis vestita",38.3333333333333
-"47","Amphiophiura convexa",34.6666666666667
-"47","Laevidentalium leptosceles",18.6666666666667
-"47","Axinodon bornianus",14
-"48","Electrona antarctica",70.8571428571429
-"48","Bathylagus",39.1428571428571
-"48","Gymnoscopelus braueri",36.8571428571429
+"13","Mallotus villosus",7722.13171449598
+"13","Gadus morhua",1215.40066225167
+"13","Clupea harengus",1175.54194260487
+"13","Melanogrammus aeglefinus",270.761957321558
+"13","Sebastes",200.824135393671
+"14","Acanthogorgia",90.0909090909091
+"14","Asbestopluma",12.2545454545455
+"14","Desmophyllum dianthus",11.9818181818182
+"14","Poecillastra",10.0727272727273
+"14","Corallium",8.85454545454546
+"15","Sebastes",5143.79729729731
+"15","Clupea harengus",505.725225225228
+"15","Mallotus villosus",378.286036036036
+"15","Gadus morhua",220.502252252252
+"15","Melanogrammus aeglefinus",187.808558558559
+"16","Beryx splendens",15.314185228605
+"16","Metanephrops challengeri",12.400937866354
+"16","Squalus acanthias",1.15005861664713
+"16","Pennatula",0.0715123094958962
+"16","Enallopsammia rostrata",0.0492379835873384
+"17","Plumarella",47.6373626373626
+"17","Desmophyllum pertusum",7.19780219780219
+"17","Thouarella",4.24175824175824
+"17","Swiftia",3.82417582417582
+"17","Paragorgia",2.07692307692308
+"18","Benthosema glaciale",2196.62595419847
+"18","Maurolicus muelleri",949.748091603056
+"18","Argentina silus",102.328244274809
+"18","Trisopterus esmarkii",65.2290076335879
+"18","Micromesistius poutassou",62.1297709923664
+"19","Thouarella",53.1323529411764
+"19","Madrepora oculata",15.5294117647059
+"19","Enallopsammia rostrata",4.86764705882353
+"19","Paramuricea",3.92647058823529
+"19","Swiftia",2.47058823529412
+"20","Stylaster",75.530612244898
+"20","Farrea",32.9795918367347
+"20","Paragorgia arborea",27.2857142857143
+"20","Plumarella",15.2448979591837
+"20","Poecillastra",6.22448979591836
+"21","Heteropolypus ritteri",416.923076923077
+"21","Callistephanus pacificus",91.25
+"21","Sebastolobus",84.4038461538461
+"21","Callistephanus",81.7211538461539
+"21","Mycale",80.4423076923077
+"22","Dendrophyllia",98.1650485436893
+"22","Enallopsammia rostrata",72.7184466019418
+"22","Poecillastra",35.3592233009709
+"22","Stichopathes",28.6699029126213
+"22","Calibelemnon symmetricum",28.1844660194175
+"23","Mycale (Mycale) loveni",28.7972027972028
+"23","Sebastolobus",13.6433566433567
+"23","Mycale",7.7832167832168
+"23","Heteropolypus ritteri",5.15384615384615
+"23","Sebastes",2.93006993006994
+"24","Maurolicus muelleri",920.870376541152
+"24","Clupea harengus",851.48533822062
+"24","Micromesistius poutassou",641.109796734411
+"24","Trisopterus esmarkii",470.038320559812
+"24","Scomber scombrus",445.029656781075
+"25","Scomber scombrus",2355.36661698957
+"25","Micromesistius poutassou",44.4157973174364
+"25","Cyclopterus lumpus",16.3472429210135
+"25","Arctozenus risso",0.405365126676604
+"25","Merluccius merluccius",0.196721311475408
+"26","Benthosema glaciale",426.375
+"26","Cyclothone microdon",396.541666666667
+"26","Cyclothone braueri",62.2083333333333
+"26","Lampanyctus macdonaldi",54.625
+"26","Scopelogadus beanii",44.7916666666667
+"27","Ophiomusa lymani",19.75
+"27","Thenea",1.54545454545454
+"27","Acanella",0.181818181818182
+"27","Solenosmilia variabilis",0.159090909090909
+"27","Chrysogorgia",0.102272727272727
+"28","Anthomastus",84.5522388059701
+"28","Paragorgia",38.7313432835821
+"28","Primnoa wingi",34.7910447761194
+"28","Pyloderma",12.8059701492537
+"28","Pleurocorallium porcellanum",10.1492537313433
+"29","Desmophyllum dianthus",330.595505617977
+"29","Paramuricea",45.1516853932584
+"29","Solenosmilia variabilis",44.3202247191011
+"29","Keratoisis",16.8820224719101
+"29","Acanthogorgia",15.2808988764045
+"30","Ophiocten hastatum",610.382419058823
+"30","Ophiomusa lymani",14.735294117647
+"30","Astrodia tenuispina",1.02941176470588
+"30","Thenea",0.970588235294118
+"30","Kophobelemnon",0.0882352941176471
+"31","Umbellula",18.554054054054
+"31","Pennatula",6.25675675675676
+"31","Protoptilum",2.2027027027027
+"31","Lillipathes",0.324324324324324
+"31","Stauropathes",0.283783783783784
+"32","Electrona antarctica",169.721518987342
+"32","Retaria",66.4683544303797
+"32","Cyclothone microdon",0.594936708860759
+"33","Sebastes mentella",329.346153846154
+"33","Rimicaris",49
+"33","Micromesistius poutassou",11.5865384615385
+"33","Stenella attenuata",11.2307692307692
+"33","Nematocarcinus longirostris",10.7692307692308
+"34","Micromesistius poutassou",855.255033557048
+"34","Benthosema glaciale",61.0016778523489
+"34","Desmophyllum",57.3104026845637
+"34","Merluccius merluccius",50.1778523489932
+"34","Crypthelia",27.8238255033557
+"35","Stenella longirostris",79.65625
+"35","Stenella attenuata",0.0625
+"36","Chrysogorgia",223.162962962963
+"36","Hemicorallium",186.533333333333
+"36","Narella",63.2333333333334
+"36","Poliopogon",62.9666666666668
+"36","Paragorgia",51.4333333333333
+"37","Abyssorchomene gerulicorbis",18.85
+"37","Monhystrella",10.1
+"37","Paralicella caperesca",7.8
+"37","Paralicella tenuipes",3.15
+"37","Acantholaimus",2.6
+"38","Ophiosphalma armigerum",1.1
+"38","Amphiophiura convexa",0.7
+"38","Silax daleus",0.2
+"39","Notolepis coatsorum",11.5
+"40","Orchomene",1006.38461538462
+"40","Paralicella",210.923076923077
+"40","Eurythenes",1.07692307692308
+"40","Hirondellea",0.615384615384615
+"41","Bathylagus",45.6666666666667
+"41","Gymnoscopelus braueri",43
+"41","Notolepis coatsorum",4.66666666666667
+"42","Amphiophiura convexa",41
+"42","Propeamussium meridionale",30.2
+"42","Monactis vestita",23
+"42","Axinodon bornianus",12.8
+"42","Styracaster caroli",11.4
+"43","Nausithoe",8.55555555555556
+"43","Macrostylis",5.65672675756891
+"43","Eurycletodes",5.55555555555555
+"43","Mesocletodes",4.77777777777778
+"43","Typhlotanais",4.51492647536674
+"44","Hyalonema (Corynonema)",87.3333333333333
+"45","Eurycope",9
+"45","Mirabilicoxa",8.26666666666667
+"45","Eugerdella",6.06666666666667
+"45","Eugerda",6
+"45","Seguenzia",4.33333333333333
+"46","Benthesicymus",535.953271028037
+"46","Enypniastes eximia",353.747663551402
+"46","Coryphaenoides",285.233644859813
+"46","Peniagone leander",285.140186915888
+"46","Grimpoteuthis",250.261682242991
+"47","Hyalonema",15.5555555555556
+"47","Abyssopathes",3
+"47","Docosaccus",2.33333333333333
+"47","Bathygorgia",1.22222222222222
+"47","Grimpoteuthis",0.111111111111111
+"48","Acantholaimus",18.6666666666667
+"48","Halalaimus",10.2222222222222
+"48","Acantholaimus veitkoehlerae",4.72222222222222
+"48","Deontolaimus",3.94444444444445
+"48","Monhystrella",3.38888888888889

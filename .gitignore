@@ -6,3 +6,4 @@ data/bathy_matrix.rds
 .DS_Store
 process_book.md
 .vscode/
+data/data_formatters/node_modules/
