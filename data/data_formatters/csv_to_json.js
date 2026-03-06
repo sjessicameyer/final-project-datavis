@@ -28,8 +28,8 @@ async function loadLData() {
 			uniqueJSON[index].zones.push({'layer': d.depth_layer.split(' ')[0], 'community_id': +d.predicted_community_id});
 		});
 
-		fs.writeFileSync("data/unformatted_data/predicted_community_data.json", JSON.stringify(uniqueJSON));
-		console.log("Successfully wrote data/unformatted_data/predicted_community_data.json");
+		fs.writeFileSync("data/predicted_community_data.json", JSON.stringify(uniqueJSON));
+		console.log("Successfully wrote data/predicted_community_data.json");
 	} catch (error) {
 		console.error("Error in loadLData:", error);
 	}
@@ -63,8 +63,8 @@ async function loadCData() {
 			})
 		})
 
-		fs.writeFileSync("data/unformatted_data/community_composition.json", JSON.stringify(speciesJSON));
-		console.log("Successfully wrote data/unformatted_data/community_composition.json");
+		fs.writeFileSync("data/community_composition.json", JSON.stringify(speciesJSON));
+		console.log("Successfully wrote data/community_composition.json");
 	} catch (error) {
 		console.error("Error in loadCData:", error);
 	}
