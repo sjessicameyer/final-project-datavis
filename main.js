@@ -153,16 +153,18 @@ function setupDiveVisualization() {
 		}
 
 		// Draw info box
-		step.append("div")
-			.attr("class", "step-content")
-			.html(`
-				<h2>${layer.name}</h2>
-				<p>Depth: ${layer.depth}</p>
-				<p>Common species at this depth include:</p>
-				<ul>
-					${[...Array(community.length).keys()].map(i => `<li style="--fish-color: ${fishColors[i]};">`+community[i].species+'</li>').join('')}
-				</ul>
-			`);
+		getCommonNames(community).then(nameData => {
+			step.append("div")
+				.attr("class", "step-content")
+				.html(`
+					<h2>${layer.name}</h2>
+					<p>Depth: ${layer.depth}</p>
+					<p>Common species at this depth include:</p>
+					<ul>
+						${[...Array(community.length).keys()].map(i => `<li style="--fish-color: ${fishColors[i]};">${nameData[i]} (<i>${community[i].species}</i>)</li>`).join('')}
+					</ul>
+				`);
+		});
 
 		// Draw background fish
 		const svg = d3.create("svg")

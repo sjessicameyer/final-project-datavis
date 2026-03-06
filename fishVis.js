@@ -93,8 +93,6 @@ function fishExceptions(species) {
 			return 'https://images.phylopic.org/images/86a33ef6-914f-4eeb-ae61-216b8fc272ff/vector.svg';
 		case "Luzonichthys whitleyi":
 			return 'https://images.phylopic.org/images/8de62bb0-f35b-45d3-a721-6ff10b60f672/vector.svg';
-		case "Pycnochromis acares":
-			return 'https://images.phylopic.org/images/4afc079c-4ec3-46f6-aa25-4d18c61cef26/vector.svg';
 		case "Swiftia torreyi":
 			return 'https://images.phylopic.org/images/baf5b9c0-79f9-4edb-b2e4-e45e45a3b2ed/vector.svg';
 		case "Acantholaimus veitkoehlerae":
@@ -113,4 +111,73 @@ function fishExceptions(species) {
 		default:
 			return 'https://logo-icons.com/cdn/shop/files/125-logo-1711890864.887.svg';
 	}
+}
+
+async function getCommonNames(community) {
+	const search_NCBI_url = `https://api.ncbi.nlm.nih.gov/datasets/v2/taxonomy/dataset_report`;
+	const NCBI_body = {'taxons': community.map(d => d.species)};
+	const NCBI_header = {headers: {'api-key': api_key}};
+
+	return axios.post(search_NCBI_url, NCBI_body, NCBI_header).then((res) => { // Search NCBI for more info
+		let reports = res.data.reports;
+
+		let classifications = [];
+		for (let i = 0; i < community.length; i++) {
+			for (let j = 0; j < reports.length; j++) {
+				if (community[i].species === reports[j].query[0]) {
+					if (reports[j].taxonomy.curator_common_name !== undefined) {
+						classifications.push(titleCase(reports[j].taxonomy.curator_common_name));
+					}
+					else if (reports[j].taxonomy.group_name !== undefined) {
+						console.log(reports[j].taxonomy)
+						classifications.push(titleCase(reports[j].taxonomy.group_name));
+					}
+					else {
+						classifications.push(fishCommonNameExceptions(reports[j].query[0]));
+					}
+					break;
+				}
+			}
+		}
+
+		return classifications;
+	});
+}
+
+function fishCommonNameExceptions(species) {
+	switch (species) {
+		// Default algorithm picks ugly SVG
+		case 'Chrysogorgia':
+			return 'Soft Coral';
+		// Species / genus don't exist in NCBI database
+		case "Pterosperma marginatum":
+		case "Pterosperma vanhoeffenii":
+		case "Pterosperma moebii":
+			return 'Green Algae';
+		case "Luzonichthys whitleyi":
+			return 'Whitley\'s Splitfin';
+		case "Swiftia torreyi":
+			return 'Dwarf Red Sea Fan';
+		case "Acantholaimus veitkoehlerae":
+		case "Acantholaimus maks":
+			return 'Marine Nematode';
+		case "Nematocarcinus sigmoideus":
+			return 'Crustacean';
+		case "Amphiophiura convexa":
+			return 'Brittle Star';
+		case "Stephanoscyphistoma":
+			return 'Crown Jellyfish';
+		case "Axinodon bornianus":
+			return 'Bivalve';
+		case "Propeamussium meridionale":
+			return 'Bivalve';
+		default:
+			return 'Marine Organism';
+	}
+}
+
+function titleCase(str) {
+	return str.toLowerCase().split(' ').map(function (word) {
+		return (word.charAt(0).toUpperCase() + word.slice(1, (word.charAt(word.length-1) == 's' ? (word == 'fishes' ? word.length-2 : word.length-1) : word.length)));
+	}).join(' ');
 }
