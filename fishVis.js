@@ -1,45 +1,41 @@
 // You can make these for free and delete them whenever so leaving it on the internet does not affect me
 const api_key = 'a847d03e9bd2468aa977b6b6a984079c9c08';
 
-async function getFishSVG(sciName) {
+async function getFishSVG(sciName, taxonomy) {
 	const phylopic_url = 'https://api.phylopic.org';
 	const search_phylopic_tag = '/images?build=536&filter_name=';
 	const species = sciName.toLowerCase().replace(' ', '%20');
-	const genus = sciName.toLowerCase().split(' ')[0];
 
-	const search_NCBI_url = `https://api.ncbi.nlm.nih.gov/datasets/v2/taxonomy/dataset_report`;
-	const NCBI_body = {'taxons':[`${sciName}`]};
-	const NCBI_header = {headers: {'api-key': api_key}};
+	if (taxonomy == 'X' || sciName == 'Chrysogorgia') {
+		return fishExceptions(sciName);
+	}
 
 	// Check for valid taxon magnitude search
 	return axios.get(phylopic_url+search_phylopic_tag+species).then(res => { // Search by species
 		if (res.data.totalItems == 0) {
-			return axios.post(search_NCBI_url, NCBI_body, NCBI_header).then((res) => { // Search NCBI for more info
-				const classification = res.data.reports[0].taxonomy.classification;
-				return axios.get(phylopic_url+search_phylopic_tag+classification.family.name.toLowerCase()).then((res) => { // Search by family
-					if (res.data.totalItems == 0) {
-						return axios.get(phylopic_url+search_phylopic_tag+classification.order.name.toLowerCase()).then((res) => { // Search by order
-							if (res.data.totalItems == 0) {
-								return axios.get(phylopic_url+search_phylopic_tag+classification.class.name.toLowerCase()).then((res) => { // Search by class
-									if (res.data.totalItems == 0) {
-										return axios.get(phylopic_url+search_phylopic_tag+classification.phylum.name.toLowerCase()).then((res) => { // Search by phylum
-											return res.data.totalItems == 0 ? 'X' : res.data._links.firstPage.href;
-										});
-									}
-									else {
-										return res.data._links.firstPage.href;
-									}
-								});
-							}
-							else {
-								return res.data._links.firstPage.href;
-							}
-						});
-					}
-					else {
-						return res.data._links.firstPage.href;
-					}
-				});
+			return axios.get(phylopic_url+search_phylopic_tag+taxonomy.family.name.toLowerCase()).then((res) => { // Search by family
+				if (res.data.totalItems == 0) {
+					return axios.get(phylopic_url+search_phylopic_tag+taxonomy.order.name.toLowerCase()).then((res) => { // Search by order
+						if (res.data.totalItems == 0) {
+							return axios.get(phylopic_url+search_phylopic_tag+taxonomy.class.name.toLowerCase()).then((res) => { // Search by class
+								if (res.data.totalItems == 0) {
+									return axios.get(phylopic_url+search_phylopic_tag+taxonomy.phylum.name.toLowerCase()).then((res) => { // Search by phylum
+										return res.data.totalItems == 0 ? 'X' : res.data._links.firstPage.href;
+									});
+								}
+								else {
+									return res.data._links.firstPage.href;
+								}
+							});
+						}
+						else {
+							return res.data._links.firstPage.href;
+						}
+					});
+				}
+				else {
+					return res.data._links.firstPage.href;
+				}
 			});
 		}
 		else {
@@ -56,4 +52,65 @@ async function getFishSVG(sciName) {
 			});
 		});
 	});
+}
+
+async function getClassificationInformation(community) {
+	const search_NCBI_url = `https://api.ncbi.nlm.nih.gov/datasets/v2/taxonomy/dataset_report`;
+	const NCBI_body = {'taxons': community.map(d => d.species)};
+	const NCBI_header = {headers: {'api-key': api_key}};
+
+	return axios.post(search_NCBI_url, NCBI_body, NCBI_header).then((res) => { // Search NCBI for more info
+		let reports = res.data.reports;
+
+		let classifications = [];
+		for (let i = 0; i < community.length; i++) {
+			for (let j = 0; j < reports.length; j++) {
+				if (community[i].species === reports[j].query[0]) {
+					try {
+						classifications.push(reports[j].taxonomy.classification);
+					}
+					catch(e) {
+						classifications.push('X');
+					}
+					break;
+				}
+			}
+		}
+
+		return classifications;
+	});
+}
+
+function fishExceptions(species) {
+	switch (species) {
+		// Default algorithm picks ugly SVG
+		case 'Chrysogorgia':
+			return 'https://images.phylopic.org/images/c219e634-002e-4da0-af23-f0ef916db93e/vector.svg';
+		// Species / genus don't exist in NCBI database
+		case "Pterosperma marginatum":
+		case "Pterosperma vanhoeffenii":
+		case "Pterosperma moebii":
+			return 'https://images.phylopic.org/images/86a33ef6-914f-4eeb-ae61-216b8fc272ff/vector.svg';
+		case "Luzonichthys whitleyi":
+			return 'https://images.phylopic.org/images/8de62bb0-f35b-45d3-a721-6ff10b60f672/vector.svg';
+		case "Pycnochromis acares":
+			return 'https://images.phylopic.org/images/4afc079c-4ec3-46f6-aa25-4d18c61cef26/vector.svg';
+		case "Swiftia torreyi":
+			return 'https://images.phylopic.org/images/baf5b9c0-79f9-4edb-b2e4-e45e45a3b2ed/vector.svg';
+		case "Acantholaimus veitkoehlerae":
+		case "Acantholaimus maks":
+			return 'https://images.phylopic.org/images/a68be31e-95e7-415a-8fb2-2a6fd3275cb8/vector.svg';
+		case "Nematocarcinus sigmoideus":
+			return 'https://images.phylopic.org/images/afbc3136-8e5d-4417-a8b1-b7e50c09d56b/vector.svg';
+		case "Amphiophiura convexa":
+			return 'https://images.phylopic.org/images/99c957a2-99b1-4a30-9b25-355a6fb55509/vector.svg';
+		case "Stephanoscyphistoma":
+			return 'https://images.phylopic.org/images/4aa4eb35-fd31-458c-b262-606dfbdbd19e/vector.svg';
+		case "Axinodon bornianus":
+			return 'https://images.phylopic.org/images/9f6baa5c-7d56-46fd-b4d8-2de349898af0/vector.svg';
+		case "Propeamussium meridionale":
+			return 'http://images.phylopic.org/images/fccce2ac-5d0b-45b8-afbf-7ca43447f7ae/vector.svg';
+		default:
+			return 'https://logo-icons.com/cdn/shop/files/125-logo-1711890864.887.svg';
+	}
 }
