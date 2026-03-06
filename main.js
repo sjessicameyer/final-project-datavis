@@ -77,9 +77,9 @@ function setupDiveVisualization() {
 		'Swiftia', 'Acantholaimus', 'Nematocarcinus', 'Amphiophiura', 
 		'Stephanoscyphistoma', 'Axinodon', 'Propeamussium', 'Pyrosoma atlanticum', 'Thouarella', 'Madrepora oculata', 'Enallopsammia rostrata', 'Paramuricea', 'Axinodon bornianus', 'Propeamussium meridionale', 'Ophiosphalma armigerum', 'Benthodytes', 'Muriceides', 'Anthomastus', 'Hemicorallium', 'Chrysogorgia', 'Narella', 'Chonelasma'
 	];
-	
+
 	const fishFacingRight = [
-		'Pseudanthias bartlettorum', 'Sprattus sprattus', 'Hippoglossoides platessoides', 'Clupea harengus', 'Pycnochromis vanderbilti'
+		'Pseudanthias bartlettorum', 'Sprattus sprattus', 'Hippoglossoides platessoides', 'Clupea harengus'
 	];
 
 	const fishFacingUp = [
