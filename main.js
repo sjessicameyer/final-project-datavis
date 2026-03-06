@@ -151,14 +151,39 @@ function setupDiveVisualization() {
 				let size = 80;
 
 				if (data[fishIndex] != 'X') {
+					let yPos, xPos;
+					const benthicResidents = [
+						'Chrysogorgia', 'Acanella', 'Thenea', 'Ophiomusa', 
+						'Ophiocten', 'Solenosmilia', 'Anthomastus', 'Hyalonema',
+						'Desmophyllum', 'Hemicorallium', 'Stichopathes', 'Retaria'
+					];
+					if (community[fishIndex].kingdom == 'Plantae' || benthicResidents.includes(community[fishIndex].species)) {
+						size = 30 + randomInRange(0, 30);
+						xPos = randomInRange(0, window.innerWidth - size);
+
+						if (i == validZones.length - 1) {
+							let xCenter = xPos + size / 2;
+							let xPct = (xCenter / window.innerWidth) * 100;
+							let yPct = getFloorYPercent(xPct);
+							let sandHeight = (100 - yPct) * 2.5; // Scale factor assuming ~250px floor height
+							yPos = window.innerHeight - size - sandHeight;
+						} else {
+							yPos = window.innerHeight - size;
+						}
+						yPos += randomInRange(0, 20); // Add some vertical randomness
+					} else {
+						xPos = randomInRange(0, window.innerWidth - size);
+						yPos = randomInRange((i == 0 ? 100 : 0), window.innerHeight - size - (i == locationData.zones.length - 1 ? 100 : 0));
+					}
+
 					fishGroup.append("image")
 						.attr("id", community[fishIndex].species)
 						.attr("class", fishColorClasses[fishIndex])
 						.attr("xlink:href", data[fishIndex])
 						.attr("height", size)
 						.attr("width", size)
-						.attr("x", randomInRange(0, window.innerWidth - size))
-						.attr("y", randomInRange((i == 0 ? 100 : 0), window.innerHeight - size - (i == locationData.zones.length - 1 ? 100 : 0)));
+						.attr("x", xPos)
+						.attr("y", yPos);
 				}
 				else {
 					fishGroup.append("circle")
@@ -224,5 +249,18 @@ function createBubbles() {
 			.style("animation-duration", (Math.random() * 10 + 10) + "s")
 			.style("animation-delay", (Math.random() * 10) + "s")
 			.style("opacity", Math.random() * 0.5 + 0.4);
+	}
+}
+
+function getFloorYPercent(t) {
+	if (t < 33) {
+		let local_t = t / 33;
+		return 20 * local_t * local_t - 20 * local_t + 60;
+	} else if (t < 66) {
+		let local_t = (t - 33) / 33;
+		return -10 * local_t * local_t + 20 * local_t + 60;
+	} else {
+		let local_t = (t - 66) / 34;
+		return 70 - 10 * local_t * local_t;
 	}
 }

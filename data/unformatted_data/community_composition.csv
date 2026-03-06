@@ -1,217 +1,217 @@
-"community_id","species","avg_abundance"
-"1","Calanus",940.369034152706
-"1","Centropages typicus",102.894822710464
-"1","Calanus finmarchicus",80.1601587992158
-"1","Acartia",66.1154013487042
-"1","Temora longicornis",62.7993256471598
-"2","Larus novaehollandiae",28.720204688014
-"2","Phalacrocorax melanoleucos",27.3118190822048
-"2","Phalacrocorax sulcirostris",21.2966325519975
-"2","Eudyptula minor",1.30158468141303
-"2","Chelonia mydas",0.123142951469141
-"3","Trisopterus esmarkii",718.384539566434
-"3","Ammodytes marinus",712.553998873545
-"3","Alosa pseudoharengus",262.890382990707
-"3","Scomber scombrus",223.313714446616
-"3","Sprattus sprattus",209.883694733842
-"4","Mallotus villosus",9805.35370975241
-"4","Boreogadus saida",234.161455902948
-"4","Neocalanus plumchrus",150.020998600093
-"4","Hippoglossoides platessoides",76.0811945870275
-"4","Sebastes",60.5884274381728
-"5","Clupea harengus",953.140672239027
-"5","Boreogadus saida",386.181397830322
-"5","Trisopterus esmarkii",193.617997510218
-"5","Sprattus sprattus",145.262671171967
-"5","Mallotus villosus",114.134447803659
-"6","Pterosperma",4140.50224215243
-"6","Pterosperma marginatum",336.330343796712
-"6","Pterosperma vanhoeffenii",313.904334828103
-"6","Calanus",271.218236173396
-"6","Pterosperma moebii",269.070254110612
-"7","Oithona",170.942145135566
-"7","Calanus",42.8046251993621
-"7","Centropages typicus",40.2769537480063
-"7","Acartia",28.2037480063795
-"7","Paracalanus",20.3385167464114
-"8","Pseudanthias bartlettorum",2941.66666666667
-"8","Luzonichthys whitleyi",2576.76241134751
-"8","Lepidozygus tapeinosoma",1071.41489361703
-"8","Pycnochromis vanderbilti",1071.30141843972
-"8","Pycnochromis acares",1014.29078014184
-"9","Pseudocalanus",475.078137988364
-"9","Calanus",105.045719035743
-"9","Neocalanus plumchrus",101.551953449709
-"9","Acartia (Acartiura) longiremis",88.0939318370739
-"9","Acartia",56.9451371571074
-"10","Metridia",159.346989374262
-"10","Calanus",55.8453364817
-"10","Centropages typicus",43.8157024793391
-"10","Oithona",21.2786304604487
-"10","Neocalanus plumchrus",20.5242030696577
-"11","Strongylocentrotus purpuratus",2125.01466992665
-"11","Pyrosoma atlanticum",680.356968215159
-"11","Doryteuthis opalescens",486.017114914425
-"11","Mesocentrotus franciscanus",459.254278728606
-"11","Sebastes",432.924205378972
-"12","Evadne",362.512761020883
-"12","Calanus",71.7331786542921
-"12","Acartia",63.2529002320184
-"12","Temora longicornis",53.8051044083526
-"12","Podon",45.5661252900232
-"13","Acanthogorgia",92.046511627907
-"13","Asbestopluma",15.6744186046512
-"13","Poecillastra",6.06976744186047
-"13","Dendrophyllia",5.41860465116279
-"13","Desmophyllum pertusum",5.06976744186046
-"14","Sebastes",13383.8113207547
-"14","Mallotus villosus",988.06289308176
-"14","Clupea harengus",474.194968553459
-"14","Melanogrammus aeglefinus",290.327044025157
-"14","Gadus morhua",249.672955974843
-"15","Scomber scombrus",3736.42767295598
-"15","Clupea harengus",213.825471698114
-"15","Micromesistius poutassou",45.7971698113205
-"15","Cyclopterus lumpus",10.7672955974842
-"15","Maurolicus muelleri",8.85377358490559
-"16","Dacrygorgia",246.181818181818
-"16","Desmophyllum pertusum",4.90909090909091
-"16","Farrea",3.36363636363636
-"16","Stylaster",0.636363636363636
-"17","Mallotus villosus",2579.6397248496
-"17","Clupea harengus",1006.97027392208
-"17","Maurolicus muelleri",678.133644515353
-"17","Trisopterus esmarkii",328.390861073571
-"17","Sprattus sprattus",302.660115464946
-"18","Gadus morhua",7878.45491803279
-"18","Melanogrammus aeglefinus",959.831967213113
-"18","Mallotus villosus",469.569672131148
-"18","Clupea harengus",373.795081967214
-"18","Sebastes",155.5
-"19","Desmophyllum pertusum",24.3203883495145
-"19","Muriceides",0.922330097087377
-"19","Paramuricea",0.660194174757282
-"19","Stichopathes",0.388349514563107
-"19","Stylaster",0.29126213592233
-"20","Stichopathes",46.9787234042553
-"20","Paramuricea",1.29787234042553
-"20","Desmophyllum pertusum",1.02127659574468
-"20","Enallopsammia rostrata",0.638297872340425
-"20","Acanthogorgia",0.553191489361702
-"21","Paramuricea",131
-"21","Madrepora oculata",18.7142857142857
-"21","Acanthogorgia",10.5238095238095
-"21","Primnoa resedaeformis",8.90476190476191
-"21","Pennatula",5.04761904761905
-"22","Beryx splendens",56.8805309734513
-"22","Thouarella",16.5663716814159
-"22","Madrepora oculata",4.71238938053096
-"22","Enallopsammia rostrata",1.64601769911504
-"22","Paramuricea",1.18141592920354
-"23","Micromesistius poutassou",5658.17369308599
-"23","Trisopterus esmarkii",486.743676222596
-"23","Benthosema glaciale",467.551433389545
-"23","Maurolicus muelleri",226.323777403034
-"23","Argentina silus",102.254637436762
-"24","Mycale (Mycale) loveni",4
-"24","Sebastolobus",1.11214953271028
-"24","Callistephanus",0.766355140186915
-"24","Microstomus pacificus",0.401869158878505
-"24","Heteropolypus ritteri",0.392523364485981
-"25","Paragorgia",114.583333333333
-"25","Primnoa wingi",43.4166666666667
-"25","Trissopathes",13.4166666666667
-"25","Anthomastus",5.5
-"25","Narella",3.41666666666667
-"26","Desmophyllum dianthus",1499.65789473684
-"26","Solenosmilia variabilis",52.7894736842105
-"26","Anthomastus",52.1578947368421
-"26","Acanthogorgia",23.1578947368421
-"26","Paramuricea",18.9473684210526
-"27","Anthomastus",151.219512195122
-"27","Hemicorallium",41.3170731707317
-"27","Chrysogorgia",17.8536585365854
-"27","Narella",9.46341463414634
-"27","Chonelasma",7.80487804878048
-"28","Cyclothone microdon",392.083333333333
-"28","Lampanyctus macdonaldi",50.5416666666667
-"28","Cyclothone braueri",48.75
-"28","Scopelogadus beanii",44.0416666666667
-"28","Protomyctophum arcticum",28.5416666666667
-"29","Chrysogorgia",41.7191400832184
-"29","Hemicorallium",32.9119278779474
-"29","Desmophyllum",23.8342579750345
-"29","Merluccius merluccius",20.8307905686548
-"29","Ophiocten hastatum",14.3952858862693
-"30","Electrona antarctica",496.592592592592
-"30","Gymnoscopelus braueri",39.8148148148148
-"30","Cyclothone microdon",1.74074074074074
-"31","Solenosmilia variabilis",149.228571428571
-"31","Ophiocten hastatum",0.914285714285714
-"31","Ophiomusa lymani",0.257142857142857
-"31","Chrysogorgia",0.257142857142857
-"31","Acanella",0.142857142857143
-"32","Ophiomusa lymani",20.8024691358025
-"32","Thenea",0.45679012345679
-"32","Solenosmilia variabilis",0.148148148148148
-"32","Acanella",0.148148148148148
-"33","Crypthelia",158.104761904762
-"33","Acanthogorgia",51.2571428571429
-"33","Keratoisis",29.0952380952381
-"33","Hemicorallium",19.7428571428571
-"33","Lepidisis",14.5047619047619
-"34","Asbestopluma",42.7272727272727
-"34","Caryophyllia",9.95454545454545
-"34","Swiftia torreyi",4.59090909090909
-"34","Paragorgia arborea var. pacifica",1.45454545454545
-"34","Farrea",1.31818181818182
-"35","Enallopsammia rostrata",766.5
-"35","Chrysogorgia",6.75
-"35","Bathypathes",3.25
-"35","Chrysogorgia geniculata",3.25
-"35","Hemicorallium",3
-"36","Bathypathes",26.65625
-"36","Stauropathes",4.46875
-"36","Chrysogorgia",3.15625
-"36","Hemicorallium",2.28125
-"36","Parantipathes",1.6875
-"37","Acantholaimus",16.0666666666667
-"37","Halalaimus",11.0666666666667
-"37","Acantholaimus veitkoehlerae",3.73333333333333
-"37","Acantholaimus maks",2.86666666666667
-"37","Deontolaimus",2.06666666666667
-"38","Nematocarcinus sigmoideus",8.66666666666667
-"38","Ophiosphalma armigerum",1
-"38","Amphiophiura convexa",0.666666666666667
-"39","Hyalonema",27.2
-"39","Docosaccus",3.6
-"39","Abyssopathes",2.8
-"39","Bathygorgia",0.2
-"40","Monactis",5
-"41","Eurythenes",1.95238095238095
-"41","Paralicella caperesca",1.42857142857143
-"41","Paralicella tenuipes",1.19047619047619
-"41","Paralicella",0.476190476190476
-"41","Abyssorchomene gerulicorbis",0.428571428571428
-"42","Haploniscus",6.53846153846154
-"42","Haploniscus hydroniscoides",6.15384615384615
-"42","Ringiculoides kurilensis",0.230769230769231
-"43","Benthesicymus",535.953271028037
-"43","Enypniastes eximia",353.747663551402
-"43","Coryphaenoides",285.261682242991
-"43","Peniagone leander",285.140186915888
-"43","Grimpoteuthis",250.271028037383
-"44","Benthodytes",1
-"44","Ophiomusium",0.333333333333333
-"45","Hyalonema (Corynonema)",6.71794871794871
-"45","Stephanoscyphistoma",3.71794871794872
-"45","Notoplites",0.692307692307692
-"46","Amphiophiura convexa",10.6
-"46","Axinodon bornianus",2.2
-"46","Propeamussium meridionale",1.6
-"46","Ophiosphalma armigerum",1.4
-"46","Benthodytes",0.9
-"47","Abyssoprimnoa gemina",1
-"48","Orchomene",1869
-"48","Paralicella",389.142857142857
-"48","Eurythenes",0.428571428571429
+"community_id","species","avg_abundance","kingdom"
+"1","Calanus",940.369034152706,"Animalia"
+"1","Centropages typicus",102.894822710464,"Animalia"
+"1","Calanus finmarchicus",80.1601587992158,"Animalia"
+"1","Acartia",66.1154013487042,"Animalia"
+"1","Temora longicornis",62.7993256471598,"Animalia"
+"2","Larus novaehollandiae",28.720204688014,"Animalia"
+"2","Phalacrocorax melanoleucos",27.3118190822048,"Animalia"
+"2","Phalacrocorax sulcirostris",21.2966325519975,"Animalia"
+"2","Eudyptula minor",1.30158468141303,"Animalia"
+"2","Chelonia mydas",0.123142951469141,"Animalia"
+"3","Trisopterus esmarkii",718.384539566434,"Animalia"
+"3","Ammodytes marinus",712.553998873545,"Animalia"
+"3","Alosa pseudoharengus",262.890382990707,"Animalia"
+"3","Scomber scombrus",223.313714446616,"Animalia"
+"3","Sprattus sprattus",209.883694733842,"Animalia"
+"4","Mallotus villosus",9805.35370975241,"Animalia"
+"4","Boreogadus saida",234.161455902948,"Animalia"
+"4","Neocalanus plumchrus",150.020998600093,"Animalia"
+"4","Hippoglossoides platessoides",76.0811945870275,"Animalia"
+"4","Sebastes",60.5884274381728,"Animalia"
+"5","Clupea harengus",953.140672239027,"Animalia"
+"5","Boreogadus saida",386.181397830322,"Animalia"
+"5","Trisopterus esmarkii",193.617997510218,"Animalia"
+"5","Sprattus sprattus",145.262671171967,"Animalia"
+"5","Mallotus villosus",114.134447803659,"Animalia"
+"6","Pterosperma",4140.50224215243,"Plantae"
+"6","Pterosperma marginatum",336.330343796712,"Plantae"
+"6","Pterosperma vanhoeffenii",313.904334828103,"Plantae"
+"6","Calanus",271.218236173396,"Animalia"
+"6","Pterosperma moebii",269.070254110612,"Plantae"
+"7","Oithona",170.942145135566,"Animalia"
+"7","Calanus",42.8046251993621,"Animalia"
+"7","Centropages typicus",40.2769537480063,"Animalia"
+"7","Acartia",28.2037480063795,"Animalia"
+"7","Paracalanus",20.3385167464114,"Animalia"
+"8","Pseudanthias bartlettorum",2941.66666666667,"Animalia"
+"8","Luzonichthys whitleyi",2576.76241134751,"Animalia"
+"8","Lepidozygus tapeinosoma",1071.41489361703,"Animalia"
+"8","Pycnochromis vanderbilti",1071.30141843972,"Animalia"
+"8","Pycnochromis acares",1014.29078014184,"Animalia"
+"9","Pseudocalanus",475.078137988364,"Animalia"
+"9","Calanus",105.045719035743,"Animalia"
+"9","Neocalanus plumchrus",101.551953449709,"Animalia"
+"9","Acartia (Acartiura) longiremis",88.0939318370739,"Animalia"
+"9","Acartia",56.9451371571074,"Animalia"
+"10","Metridia",159.346989374262,"Animalia"
+"10","Calanus",55.8453364817,"Animalia"
+"10","Centropages typicus",43.8157024793391,"Animalia"
+"10","Oithona",21.2786304604487,"Animalia"
+"10","Neocalanus plumchrus",20.5242030696577,"Animalia"
+"11","Strongylocentrotus purpuratus",2125.01466992665,"Animalia"
+"11","Pyrosoma atlanticum",680.356968215159,"Animalia"
+"11","Doryteuthis opalescens",486.017114914425,"Animalia"
+"11","Mesocentrotus franciscanus",459.254278728606,"Animalia"
+"11","Sebastes",432.924205378972,"Animalia"
+"12","Evadne",362.512761020883,"Animalia"
+"12","Calanus",71.7331786542921,"Animalia"
+"12","Acartia",63.2529002320184,"Animalia"
+"12","Temora longicornis",53.8051044083526,"Animalia"
+"12","Podon",45.5661252900232,"Animalia"
+"13","Acanthogorgia",92.046511627907,"Animalia"
+"13","Asbestopluma",15.6744186046512,"Animalia"
+"13","Poecillastra",6.06976744186047,"Animalia"
+"13","Dendrophyllia",5.41860465116279,"Animalia"
+"13","Desmophyllum pertusum",5.06976744186046,"Animalia"
+"14","Sebastes",13383.8113207547,"Animalia"
+"14","Mallotus villosus",988.06289308176,"Animalia"
+"14","Clupea harengus",474.194968553459,"Animalia"
+"14","Melanogrammus aeglefinus",290.327044025157,"Animalia"
+"14","Gadus morhua",249.672955974843,"Animalia"
+"15","Scomber scombrus",3736.42767295598,"Animalia"
+"15","Clupea harengus",213.825471698114,"Animalia"
+"15","Micromesistius poutassou",45.7971698113205,"Animalia"
+"15","Cyclopterus lumpus",10.7672955974842,"Animalia"
+"15","Maurolicus muelleri",8.85377358490559,"Animalia"
+"16","Dacrygorgia",246.181818181818,"Animalia"
+"16","Desmophyllum pertusum",4.90909090909091,"Animalia"
+"16","Farrea",3.36363636363636,"Animalia"
+"16","Stylaster",0.636363636363636,"Animalia"
+"17","Mallotus villosus",2579.6397248496,"Animalia"
+"17","Clupea harengus",1006.97027392208,"Animalia"
+"17","Maurolicus muelleri",678.133644515353,"Animalia"
+"17","Trisopterus esmarkii",328.390861073571,"Animalia"
+"17","Sprattus sprattus",302.660115464946,"Animalia"
+"18","Gadus morhua",7878.45491803279,"Animalia"
+"18","Melanogrammus aeglefinus",959.831967213113,"Animalia"
+"18","Mallotus villosus",469.569672131148,"Animalia"
+"18","Clupea harengus",373.795081967214,"Animalia"
+"18","Sebastes",155.5,"Animalia"
+"19","Desmophyllum pertusum",24.3203883495145,"Animalia"
+"19","Muriceides",0.922330097087377,"Animalia"
+"19","Paramuricea",0.660194174757282,"Animalia"
+"19","Stichopathes",0.388349514563107,"Animalia"
+"19","Stylaster",0.29126213592233,"Animalia"
+"20","Stichopathes",46.9787234042553,"Animalia"
+"20","Paramuricea",1.29787234042553,"Animalia"
+"20","Desmophyllum pertusum",1.02127659574468,"Animalia"
+"20","Enallopsammia rostrata",0.638297872340425,"Animalia"
+"20","Acanthogorgia",0.553191489361702,"Animalia"
+"21","Paramuricea",131,"Animalia"
+"21","Madrepora oculata",18.7142857142857,"Animalia"
+"21","Acanthogorgia",10.5238095238095,"Animalia"
+"21","Primnoa resedaeformis",8.90476190476191,"Animalia"
+"21","Pennatula",5.04761904761905,"Animalia"
+"22","Beryx splendens",56.8805309734513,"Animalia"
+"22","Thouarella",16.5663716814159,"Animalia"
+"22","Madrepora oculata",4.71238938053096,"Animalia"
+"22","Enallopsammia rostrata",1.64601769911504,"Animalia"
+"22","Paramuricea",1.18141592920354,"Animalia"
+"23","Micromesistius poutassou",5658.17369308599,"Animalia"
+"23","Trisopterus esmarkii",486.743676222596,"Animalia"
+"23","Benthosema glaciale",467.551433389545,"Animalia"
+"23","Maurolicus muelleri",226.323777403034,"Animalia"
+"23","Argentina silus",102.254637436762,"Animalia"
+"24","Mycale (Mycale) loveni",4,"Animalia"
+"24","Sebastolobus",1.11214953271028,"Animalia"
+"24","Callistephanus",0.766355140186915,"Animalia"
+"24","Microstomus pacificus",0.401869158878505,"Animalia"
+"24","Heteropolypus ritteri",0.392523364485981,"Animalia"
+"25","Paragorgia",114.583333333333,"Animalia"
+"25","Primnoa wingi",43.4166666666667,"Animalia"
+"25","Trissopathes",13.4166666666667,"Animalia"
+"25","Anthomastus",5.5,"Animalia"
+"25","Narella",3.41666666666667,"Animalia"
+"26","Desmophyllum dianthus",1499.65789473684,"Animalia"
+"26","Solenosmilia variabilis",52.7894736842105,"Animalia"
+"26","Anthomastus",52.1578947368421,"Animalia"
+"26","Acanthogorgia",23.1578947368421,"Animalia"
+"26","Paramuricea",18.9473684210526,"Animalia"
+"27","Anthomastus",151.219512195122,"Animalia"
+"27","Hemicorallium",41.3170731707317,"Animalia"
+"27","Chrysogorgia",17.8536585365854,"Animalia"
+"27","Narella",9.46341463414634,"Animalia"
+"27","Chonelasma",7.80487804878048,"Animalia"
+"28","Cyclothone microdon",392.083333333333,"Animalia"
+"28","Lampanyctus macdonaldi",50.5416666666667,"Animalia"
+"28","Cyclothone braueri",48.75,"Animalia"
+"28","Scopelogadus beanii",44.0416666666667,"Animalia"
+"28","Protomyctophum arcticum",28.5416666666667,"Animalia"
+"29","Chrysogorgia",41.7191400832184,"Animalia"
+"29","Hemicorallium",32.9119278779474,"Animalia"
+"29","Desmophyllum",23.8342579750345,"Animalia"
+"29","Merluccius merluccius",20.8307905686548,"Animalia"
+"29","Ophiocten hastatum",14.3952858862693,"Animalia"
+"30","Electrona antarctica",496.592592592592,"Animalia"
+"30","Gymnoscopelus braueri",39.8148148148148,"Animalia"
+"30","Cyclothone microdon",1.74074074074074,"Animalia"
+"31","Solenosmilia variabilis",149.228571428571,"Animalia"
+"31","Ophiocten hastatum",0.914285714285714,"Animalia"
+"31","Ophiomusa lymani",0.257142857142857,"Animalia"
+"31","Chrysogorgia",0.257142857142857,"Animalia"
+"31","Acanella",0.142857142857143,"Animalia"
+"32","Ophiomusa lymani",20.8024691358025,"Animalia"
+"32","Thenea",0.45679012345679,"Animalia"
+"32","Solenosmilia variabilis",0.148148148148148,"Animalia"
+"32","Acanella",0.148148148148148,"Animalia"
+"33","Crypthelia",158.104761904762,"Animalia"
+"33","Acanthogorgia",51.2571428571429,"Animalia"
+"33","Keratoisis",29.0952380952381,"Animalia"
+"33","Hemicorallium",19.7428571428571,"Animalia"
+"33","Lepidisis",14.5047619047619,"Animalia"
+"34","Asbestopluma",42.7272727272727,"Animalia"
+"34","Caryophyllia",9.95454545454545,"Animalia"
+"34","Swiftia torreyi",4.59090909090909,"Animalia"
+"34","Paragorgia arborea var. pacifica",1.45454545454545,"Animalia"
+"34","Farrea",1.31818181818182,"Animalia"
+"35","Enallopsammia rostrata",766.5,"Animalia"
+"35","Chrysogorgia",6.75,"Animalia"
+"35","Bathypathes",3.25,"Animalia"
+"35","Chrysogorgia geniculata",3.25,"Animalia"
+"35","Hemicorallium",3,"Animalia"
+"36","Bathypathes",26.65625,"Animalia"
+"36","Stauropathes",4.46875,"Animalia"
+"36","Chrysogorgia",3.15625,"Animalia"
+"36","Hemicorallium",2.28125,"Animalia"
+"36","Parantipathes",1.6875,"Animalia"
+"37","Acantholaimus",16.0666666666667,"Animalia"
+"37","Halalaimus",11.0666666666667,"Animalia"
+"37","Acantholaimus veitkoehlerae",3.73333333333333,"Animalia"
+"37","Acantholaimus maks",2.86666666666667,"Animalia"
+"37","Deontolaimus",2.06666666666667,"Animalia"
+"38","Nematocarcinus sigmoideus",8.66666666666667,"Animalia"
+"38","Ophiosphalma armigerum",1,"Animalia"
+"38","Amphiophiura convexa",0.666666666666667,"Animalia"
+"39","Hyalonema",27.2,"Animalia"
+"39","Docosaccus",3.6,"Animalia"
+"39","Abyssopathes",2.8,"Animalia"
+"39","Bathygorgia",0.2,"Animalia"
+"40","Monactis",5,"Animalia"
+"41","Eurythenes",1.95238095238095,"Animalia"
+"41","Paralicella caperesca",1.42857142857143,"Animalia"
+"41","Paralicella tenuipes",1.19047619047619,"Animalia"
+"41","Paralicella",0.476190476190476,"Animalia"
+"41","Abyssorchomene gerulicorbis",0.428571428571428,"Animalia"
+"42","Haploniscus",6.53846153846154,"Animalia"
+"42","Haploniscus hydroniscoides",6.15384615384615,"Animalia"
+"42","Ringiculoides kurilensis",0.230769230769231,"Animalia"
+"43","Benthesicymus",535.953271028037,"Animalia"
+"43","Enypniastes eximia",353.747663551402,"Animalia"
+"43","Coryphaenoides",285.261682242991,"Animalia"
+"43","Peniagone leander",285.140186915888,"Animalia"
+"43","Grimpoteuthis",250.271028037383,"Animalia"
+"44","Benthodytes",1,"Animalia"
+"44","Ophiomusium",0.333333333333333,"Animalia"
+"45","Hyalonema (Corynonema)",6.71794871794871,"Animalia"
+"45","Stephanoscyphistoma",3.71794871794872,"Animalia"
+"45","Notoplites",0.692307692307692,"Animalia"
+"46","Amphiophiura convexa",10.6,"Animalia"
+"46","Axinodon bornianus",2.2,"Animalia"
+"46","Propeamussium meridionale",1.6,"Animalia"
+"46","Ophiosphalma armigerum",1.4,"Animalia"
+"46","Benthodytes",0.9,"Animalia"
+"47","Abyssoprimnoa gemina",1,"Animalia"
+"48","Orchomene",1869,"Animalia"
+"48","Paralicella",389.142857142857,"Animalia"
+"48","Eurythenes",0.428571428571429,"Animalia"

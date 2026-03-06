@@ -4,7 +4,7 @@
 The ocean covers 70% of our planet, yet the deep sea remains largely unexplored. This project, "Marine Diversity Dive," aims to visualize the distribution of marine biodiversity across different depth zones—from the sunlit Epipelagic zone to the dark Abyssopelagic zone. By leveraging data from the Ocean Biodiversity Information System (OBIS), we seek to reveal patterns in species composition and ecological communities that are often hidden beneath the surface. The motivation is to make complex biodiversity data accessible and engaging through an interactive "dive" experience, allowing users to see not just where marine life is, but how it changes as they descend.
 
 ## Related Work
-*   **OBIS (Ocean Biodiversity Information System)**: The primary source of our data and an inspiration for global-scale marine mapping.
+*   **OBIS (Ocean Biodiversity Information System)**: The primary source of our data and an inspiration for global-scale marine mapping.d
 *   **"The Deep Sea" by Neal.fun**: Inspired the vertical scrolling interaction to represent depth.
 *   
 ## Questions
@@ -17,7 +17,7 @@ The ocean covers 70% of our planet, yet the deep sea remains largely unexplored.
 ## Data
 
 ### Source
-Data is sourced from the **OBIS (Ocean Biodiversity Information System)** dataset. We accessed the data directly from their S3 bucket using **DuckDB** and R (`data/pull_data.r`). This allowed us to query massive parquet files efficiently without downloading terabytes of data.
+Data is sourced from the **OBIS (Ocean Biodiversity Information System)** dataset. We accessed the data directly from their S3 bucket using **DuckDB** and R (`data/pull_data.r`). This allowed us to query massive parquet files efficiently without downloading terabytes of data. We also used bathymetry data from NOAA and data on species phylogeny from NCBI.
 
 ### Processing
 Data processing steps are handled in `data/model_biodiversity.r`:

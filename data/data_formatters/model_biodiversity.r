@@ -27,6 +27,11 @@ bathy_file <- file.path(data_dir, "bathy_matrix.rds")
 cat("Loading data from:", input_file, "\n")
 raw_data <- read.csv(input_file)
 
+# Create species to kingdom mapping
+species_kingdom_map <- raw_data %>%
+  select(species, kingdom) %>%
+  distinct()
+
 # Ensure depth_layer is an ordered factor for logical plotting/modeling
 raw_data$depth_layer <- factor(raw_data$depth_layer, 
                                levels = c("Epipelagic Zone", "Mesopelagic Zone", "Bathypelagic Zone", "Abyssopelagic Zone"))
@@ -195,6 +200,7 @@ for (zone in levels(raw_data$depth_layer)) {
     group_by(community_id) %>%
     summarise(across(everything(), mean)) %>%
     pivot_longer(-community_id, names_to = "species", values_to = "avg_abundance") %>%
+    left_join(species_kingdom_map, by = "species") %>%
     filter(avg_abundance > 0) %>% # This removes any species that are completely absent
     group_by(community_id) %>%
     filter(avg_abundance > 0.1) %>%

@@ -51,7 +51,7 @@ async function loadCData() {
 
 		// Add data to JSON
 		data.forEach(d => {
-			speciesJSON[+d.community_id-1].data.push({"species": d.species, "rate": +d.avg_abundance})
+			speciesJSON[+d.community_id-1].data.push({"species": d.species, "rate": +d.avg_abundance, "kingdom": d.kingdom})
 		});
 
 		// Normalize data in JSON to "N out of 1000"
