@@ -79,7 +79,7 @@ function setupDiveVisualization() {
 	];
 
 	const fishFacingRight = [
-		'Pseudanthias bartlettorum', 'Sprattus sprattus', 'Hippoglossoides platessoides', 'Clupea harengus'
+		'Pseudanthias bartlettorum', 'Sprattus sprattus', 'Hippoglossoides platessoides', 'Clupea harengus', 'Pycnochromis vanderbilti'
 	];
 
 	const fishFacingUp = [
