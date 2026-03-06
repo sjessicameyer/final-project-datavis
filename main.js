@@ -55,7 +55,8 @@ function setupDiveVisualization() {
 	d3.select("#vis-sticky").selectAll(".sea-floor").remove();
 
 	let locationData = state.locationDataState[state.locationDataState.map(d => d.lat + ',' + d.lon).indexOf(state.selectedLocation[0]+','+state.selectedLocation[1])];
-	let fishColors = ["#ffc265", "#ffafd1", "#68ba86", "#d5cce9", "#9fcf7f"]
+	let fishColors = ["#d5cce9", "#9fcf7f", "#ffc265", "#ffafd1", "#68ba86"]
+	let fishColorClasses = ["filter-d5cce9", "filter-9fcf7f", "filter-ffc265", "filter-ffafd1", "filter-68ba86"]
 
 	// Match zones to layers by name to ensure correct order and mapping
 	let validZones = [];
@@ -152,6 +153,7 @@ function setupDiveVisualization() {
 				if (data[fishIndex] != 'X') {
 					fishGroup.append("image")
 						.attr("id", community[fishIndex].species)
+						.attr("class", fishColorClasses[fishIndex])
 						.attr("xlink:href", data[fishIndex])
 						.attr("height", size)
 						.attr("width", size)
