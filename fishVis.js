@@ -6,7 +6,7 @@ async function getFishSVG(sciName, taxonomy) {
 	const search_phylopic_tag = '/images?build=536&filter_name=';
 	const species = sciName.toLowerCase().replace(' ', '%20');
 
-	if (taxonomy == 'X' || sciName == 'Chrysogorgia') {
+	if (taxonomy == 'X' || sciName == 'Chrysogorgia' || sciName == 'Thouarella') {
 		return fishExceptions(sciName);
 	}
 
@@ -64,6 +64,7 @@ async function getClassificationInformation(community) {
 
 		let classifications = [];
 		for (let i = 0; i < community.length; i++) {
+			let found = false;
 			for (let j = 0; j < reports.length; j++) {
 				if (community[i].species === reports[j].query[0]) {
 					try {
@@ -72,9 +73,11 @@ async function getClassificationInformation(community) {
 					catch(e) {
 						classifications.push('X');
 					}
+					found = true;
 					break;
 				}
 			}
+			if (!found) classifications.push('X');
 		}
 
 		return classifications;
@@ -85,6 +88,7 @@ function fishExceptions(species) {
 	switch (species) {
 		// Default algorithm picks ugly SVG
 		case 'Chrysogorgia':
+		case 'Thouarella':
 			return 'https://images.phylopic.org/images/c219e634-002e-4da0-af23-f0ef916db93e/vector.svg';
 		// Species / genus don't exist in NCBI database
 		case "Pterosperma marginatum":
@@ -125,10 +129,10 @@ async function getCommonNames(community) {
 		for (let i = 0; i < community.length; i++) {
 			for (let j = 0; j < reports.length; j++) {
 				if (community[i].species === reports[j].query[0]) {
-					if (reports[j].taxonomy.curator_common_name !== undefined) {
+					if (reports[j].taxonomy && reports[j].taxonomy.curator_common_name !== undefined) {
 						classifications.push(titleCase(reports[j].taxonomy.curator_common_name));
 					}
-					else if (reports[j].taxonomy.group_name !== undefined) {
+					else if (reports[j].taxonomy && reports[j].taxonomy.group_name !== undefined) {
 						console.log(reports[j].taxonomy)
 						classifications.push(titleCase(reports[j].taxonomy.group_name));
 					}
@@ -148,6 +152,8 @@ function fishCommonNameExceptions(species) {
 	switch (species) {
 		// Default algorithm picks ugly SVG
 		case 'Chrysogorgia':
+			return 'Soft Coral';
+		case 'Thouarella':
 			return 'Soft Coral';
 		// Species / genus don't exist in NCBI database
 		case "Pterosperma marginatum":

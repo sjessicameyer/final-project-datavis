@@ -62,7 +62,18 @@ function setupDiveVisualization() {
 		'Chrysogorgia', 'Acanella', 'Thenea', 'Ophiomusa', 
 		'Ophiocten', 'Solenosmilia', 'Anthomastus', 'Hyalonema',
 		'Desmophyllum', 'Hemicorallium', 'Stichopathes', 'Retaria', 
-		'Phellia', 'Abyssopathes', 'Bathygorgia', 'Docosaccus'
+		'Phellia', 'Abyssopathes', 'Bathygorgia', 'Docosaccus', 'Tunicate', 
+		'Strongylocentrotus', 'Mesocentrotus', 'Peniagone', 'Enypniastes',
+		'Swiftia', 'Acantholaimus', 'Nematocarcinus', 'Amphiophiura', 
+		'Stephanoscyphistoma', 'Axinodon', 'Propeamussium', 'Pyrosoma atlanticum', 'Thouarella', 'Madrepora oculata', 'Enallopsammia rostrata', 'Paramuricea', 'Axinodon bornianus', 'Propeamussium meridionale', 'Ophiosphalma armigerum', 'Benthodytes'
+	];
+
+	const fishFacingRight = [
+		'Pycnochromis vanderbilti', 'Sprattus sprattus', 'Hippoglossoides platessoides', 'Clupea harengus'
+	];
+
+	const fishFacingUp = [
+		'Temora longicornis', 'Acartia', 'Centropages typicus'
 	];
 
 	// Match zones to layers by name to ensure correct order and mapping
@@ -77,7 +88,7 @@ function setupDiveVisualization() {
 	for (let i = 0; i < validZones.length; i++) {
 		let layer = validZones[i].layer;
 		let community = state.communityDataState[validZones[i].zone.community_id-1].data;
-		let hasBenthic = community.some(c => c.kingdom === 'Plantae' || benthicResidents.includes(c.species));
+		let hasBenthic = community.some(c => benthicResidents.some(r => c.species.includes(r)));
 
 		const step = container.append("div")
 			.attr("id", layer.name)
@@ -97,8 +108,8 @@ function setupDiveVisualization() {
 					</svg>`);
 		}
 
-		// Add shelf to Bathypelagic Zone if it's not the last layer and has benthic species
-		if (layer.name === "Bathypelagic Zone" && i !== validZones.length - 1 && hasBenthic) {
+		// Add shelf to any Zone if it's not the last layer and has benthic species
+		if (i !== validZones.length - 1 && hasBenthic) {
 			step.append("div")
 				.attr("class", "sea-floor")
 				.style("height", "200px")
@@ -157,7 +168,7 @@ function setupDiveVisualization() {
 			step.append("div")
 				.attr("class", "step-content")
 				.html(`
-					<h2>${layer.name}</h2>
+					<h2>${layer.name}</h2>Peniagone
 					<p>Depth: ${layer.depth}</p>
 					<p>Common species at this depth include:</p>
 					<ul>
@@ -178,14 +189,22 @@ function setupDiveVisualization() {
 			Promise.all([...Array(community.length).keys()].map(i => getFishSVG(community[i].species, taxonomyData[i]))).then(data => {
 				// Draw fish SVGs
 				const fishGroup = svg.append("g").attr("id", "fish").style("pointer-events", "auto");
-				for (let j = 0; j < 100; j++) {
-					let fishIndex = randomFish(community);
-					let size = 80;
+				let totalFish = Math.max(100, community.length);
+				for (let j = 0; j < totalFish; j++) {
+					let fishIndex;
+					if (j < community.length) {
+						fishIndex = j;
+					} else {
+						fishIndex = randomFish(community);
+					}
+					
+					let taxonomy = taxonomyData[fishIndex];
+					let size = getFishSize(taxonomy);
 
 					if (data[fishIndex] != 'X') {
 						let yPos, xPos;
-						if (community[fishIndex].kingdom == 'Plantae' || benthicResidents.includes(community[fishIndex].species)) {
-							size = 30 + randomInRange(20, 50);
+						let isBenthic = benthicResidents.some(r => community[fishIndex].species.includes(r));
+						if (isBenthic) {
 							xPos = randomInRange(0, window.innerWidth - size);
 
 							if (i == validZones.length - 1) {
@@ -194,7 +213,7 @@ function setupDiveVisualization() {
 								let yPct = getFloorYPercent(xPct);
 								let sandHeight = (100 - yPct) * 2.5; // Scale factor assuming ~250px floor height
 								yPos = window.innerHeight - size - sandHeight;
-							} else if (layer.name === "Bathypelagic Zone" && i !== validZones.length - 1 && hasBenthic) {
+							} else if (i !== validZones.length - 1 && hasBenthic) {
 								let xCenter = xPos + size / 2;
 								let t = xCenter / window.innerWidth;
 								// Bezier curve for shelf: M0,40 Q50,20 100,40 -> P0=40, P1=20, P2=40
@@ -210,7 +229,7 @@ function setupDiveVisualization() {
 							yPos = randomInRange((i == 0 ? 100 : 0), window.innerHeight - size - (i == locationData.zones.length - 1 ? 100 : 0) - ((i == 2 && i != locationData.zones.length - 1) ? 150 : 0));
 						}
 
-						fishGroup.append("image")
+						let fish = fishGroup.append("image")
 							.attr("id", community[fishIndex].species)
 							.attr("class", fishColorClasses[fishIndex])
 							.attr("xlink:href", data[fishIndex])
@@ -218,6 +237,12 @@ function setupDiveVisualization() {
 							.attr("width", size)
 							.attr("x", xPos)
 							.attr("y", yPos);
+
+						if (!isBenthic) {
+							fish.style("transform-box", "fill-box")
+								.style("transform-origin", "center");
+							animateFish(fish, fishFacingRight, fishFacingUp);
+						}
 					}
 				}
 			});
@@ -290,4 +315,59 @@ function getFloorYPercent(t) {
 		let local_t = (t - 66) / 34;
 		return 70 - 10 * local_t * local_t;
 	}
+}
+
+function getFishSize(taxonomy) {
+	let size = 80;
+	if (!taxonomy || taxonomy == 'X') return size + randomInRange(-20, 20);
+
+	// Check specific groups for size overrides
+	if (taxonomy.class?.name == 'Mammalia') size = 250;
+	else if (taxonomy.class?.name == 'Chondrichthyes' || taxonomy.class?.name == 'Elasmobranchii') size = 180;
+	else if (taxonomy.order?.name == 'Cetacea') size = 250;
+	else if (taxonomy.class?.name == 'Anthozoa') size = 50;
+	else if (taxonomy.class?.name == 'Cephalopoda') size = 120;
+	else if (taxonomy.phylum?.name == 'Cnidaria') size = 120;
+	else if (taxonomy.phylum?.name == 'Arthropoda') size = 40;
+	else if (taxonomy.phylum?.name == 'Mollusca') size = 40;
+	else if (taxonomy.phylum?.name == 'Echinodermata') size = 40;
+	else if (taxonomy.phylum?.name == 'Porifera') size = 50;
+	else if (taxonomy.phylum?.name == 'Annelida' || taxonomy.phylum?.name == 'Nematoda') size = 40;
+	else if (taxonomy.kingdom?.name == 'Plantae' || taxonomy.phylum?.name == 'Chlorophyta') size = 45;
+	else if (taxonomy.class?.name == 'Actinopterygii') size = 90;
+
+	return Math.max(30, size + randomInRange(-10, 10));
+}
+
+function animateFish(fish, fishFacingRight, fishFacingUp) {
+	let startX = parseFloat(fish.attr("x"));
+	let width = parseFloat(fish.attr("width"));
+	let endX = randomInRange(0, window.innerWidth - width);
+	
+	let dist = Math.abs(endX - startX);
+	let duration = dist * 30 + 2000;
+	
+	const speciesName = fish.attr("id");
+	const facesRight = fishFacingRight.includes(speciesName);
+	const facesUp = fishFacingUp && fishFacingUp.some(f => speciesName.includes(f));
+
+	let transform;
+	if (facesUp) {
+		transform = (endX > startX) ? "rotate(90deg)" : "rotate(-90deg)";
+    } else {
+		let scale;
+		if (facesRight) {
+			scale = endX < startX ? -1 : 1;
+		} else {
+			scale = endX > startX ? -1 : 1;
+		}
+		transform = `scaleX(${scale})`;
+	}
+
+	fish.style("transform", transform)
+		.transition()
+		.duration(duration)
+		.ease(d3.easeSinInOut)
+		.attr("x", endX)
+		.on("end", () => animateFish(fish, fishFacingRight, fishFacingUp));
 }
