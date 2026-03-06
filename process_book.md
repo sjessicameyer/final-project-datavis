@@ -83,10 +83,31 @@ We used `ggplot2` in R to generate static heatmaps of species abundance and prel
 ### TODO
 
 ### Initial Sketches
-*(Include photos of sketches here)*
+![Image of first sketch](assets/sketch1.png)
+
+We were pretty clear from the beginning on the finished concept that we wanted. We wanted, firstly, the ability to select any spot in the ocean on a map. Then, the user should be able to scroll through each layer of the ocean and see a representation of the biodiversity there.
 
 ### Prototypes
-*(Include screenshots of early prototypes)*
+![Image of buggy voronoi map](assets/buggy_voronoi.png)
+One of the first things we worked on was implementing a voronoi map where you could click on cells. However, one of the main issues was that it was very slow to load. We also found that the cells were malformed in ways you couldn't see, causing a large part of the map to be all part of one big cell. This was problematic and resulted in switching to a grid-based system using D3 Delaunay, which is much faster and cleaner.
+
+![Image of oldest model](assets/oldest_model.png)
+After the map, a main priority became transforming the data from OBIS into something usable. We decided to narrow the scope of our project by focusing on characterizing the different communities that exist. So, we made a script for modelling the biodiversity and mapping the distinct ecological communities across the four ocean depth zones by applying machine learning to the species occurrence data from OBIS. For each zone, the script selected the most abundant species, builds a site-by-species abundance matrix, and uses K-Means clustering on a spatially balanced subset of sites to define unique community types, effectively mitigating sampling bias. These clusters are then interpolated onto a global coordinate grid using K-Nearest Neighbors (KNN), post-processed to mask out land areas using the sf package, and finally exported as CSV datasets and a static PNG map visualizing the global distribution of these marine communities
+
+However, it quickly became clear that some areas were very low confidence, causing a dithering effect, and that the model was also hallucinating data for regions that aren't deep enough to have certain ocean layers.
+
+![Image of old model](assets/old_model.png)
+We then updated it to use NOAA ocean depth data, account for the globe being a round surface in nearest neighbor calculations instead of treating it like a flat grid, and used the hellinger transformation to prevent super abundant species from skewing things too much. This was the first of many changes that improved our model quality. 
+
+![Image of deep sea dolphin bug](assets/deep_sea_dolphin_bug.png)
+Cole started using the PhyloPic API to find images of each animal and plant. This was difficult because many species in our data, especially at deep layers, were rare. He had to implement a process using NCBI data to identify another close ancestor to use as the image.
+
+The model also stil wasn't perfect. As we began to implement the visualization, it became clear that sometimes species that are very abundant in higher layers and occasionally dive down to lower layers would show up in zones that they don't actually live. For example, the internet verified that dolphins do not spend time this far down in the ocean. In this case, we added a cuttoff where if it is very rare for a species to occur in a certain layer compared to others, it should not be considered in that layer. This was one of many bugs we had to address.
+
+![Image of plant bug](assets/plant_bug.png)
+Another issue was that plants, and even some animals (like coral!) do not swim like the fish we were implementing. So, we had to work out a way to keep plants and corals on the ground.
+
+At this point you can also start to see that Sarah was adding decorations such as waves, bubbles, pebbles, and small sand dunes to enhance the visual appeal.
 
 ## Implementation
 *Describe the intent and functionality of the interactive visualizations you implemented. Provide clear and well-referenced images showing the key design and interaction elements.*
