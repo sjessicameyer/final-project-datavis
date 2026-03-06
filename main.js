@@ -178,7 +178,7 @@ function setupDiveVisualization() {
 			step.append("div")
 				.attr("class", "step-content")
 				.html(`
-					<h2>${layer.name}</h2>Peniagone
+					<h2>${layer.name}</h2>
 					<p>Depth: ${layer.depth}</p>
 					<p>Common species at this depth include:</p>
 					<ul>
