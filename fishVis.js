@@ -133,7 +133,6 @@ async function getCommonNames(community) {
 						classifications.push(titleCase(reports[j].taxonomy.curator_common_name));
 					}
 					else if (reports[j].taxonomy && reports[j].taxonomy.group_name !== undefined) {
-						console.log(reports[j].taxonomy)
 						classifications.push(titleCase(reports[j].taxonomy.group_name));
 					}
 					else {
@@ -186,4 +185,59 @@ function titleCase(str) {
 	return str.toLowerCase().split(' ').map(function (word) {
 		return (word.charAt(0).toUpperCase() + word.slice(1, (word.charAt(word.length-1) == 's' ? (word == 'fishes' ? word.length-2 : word.length-1) : word.length)));
 	}).join(' ');
+}
+
+function getFishSize(taxonomy) {
+	let size = 80;
+	if (!taxonomy || taxonomy == 'X') return size + randomInRange(-20, 20);
+
+	// Check specific groups for size overrides
+	if (taxonomy.class?.name == 'Mammalia') size = 250;
+	else if (taxonomy.class?.name == 'Chondrichthyes' || taxonomy.class?.name == 'Elasmobranchii') size = 180;
+	else if (taxonomy.order?.name == 'Cetacea') size = 250;
+	else if (taxonomy.class?.name == 'Anthozoa') size = 50;
+	else if (taxonomy.class?.name == 'Cephalopoda') size = 120;
+	else if (taxonomy.phylum?.name == 'Cnidaria') size = 120;
+	else if (taxonomy.phylum?.name == 'Arthropoda') size = 40;
+	else if (taxonomy.phylum?.name == 'Mollusca') size = 40;
+	else if (taxonomy.phylum?.name == 'Echinodermata') size = 40;
+	else if (taxonomy.phylum?.name == 'Porifera') size = 50;
+	else if (taxonomy.phylum?.name == 'Annelida' || taxonomy.phylum?.name == 'Nematoda') size = 40;
+	else if (taxonomy.kingdom?.name == 'Plantae' || taxonomy.phylum?.name == 'Chlorophyta') size = 45;
+	else if (taxonomy.class?.name == 'Actinopterygii') size = 90;
+
+	return Math.max(30, size + randomInRange(-10, 10));
+}
+
+function animateFish(fish, fishFacingRight, fishFacingUp) {
+	let startX = parseFloat(fish.attr("x"));
+	let width = parseFloat(fish.attr("width"));
+	let endX = randomInRange(0, window.innerWidth - width);
+	
+	let dist = Math.abs(endX - startX);
+	let duration = dist * 30 + 2000;
+	
+	const speciesName = fish.attr("id");
+	const facesRight = fishFacingRight.includes(speciesName);
+	const facesUp = fishFacingUp && fishFacingUp.some(f => speciesName.includes(f));
+
+	let transform;
+	if (facesUp) {
+		transform = (endX > startX) ? "rotate(90deg)" : "rotate(-90deg)";
+    } else {
+		let scale;
+		if (facesRight) {
+			scale = endX < startX ? -1 : 1;
+		} else {
+			scale = endX > startX ? -1 : 1;
+		}
+		transform = `scaleX(${scale})`;
+	}
+
+	fish.style("transform", transform)
+		.transition()
+		.duration(duration)
+		.ease(d3.easeSinInOut)
+		.attr("x", endX)
+		.on("end", () => animateFish(fish, fishFacingRight, fishFacingUp));
 }
