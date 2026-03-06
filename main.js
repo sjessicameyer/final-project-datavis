@@ -57,9 +57,18 @@ function setupDiveVisualization() {
 	let locationData = state.locationDataState[state.locationDataState.map(d => d.lat + ',' + d.lon).indexOf(state.selectedLocation[0]+','+state.selectedLocation[1])];
 	let fishColors = ["#ffc265", "#ffafd1", "#68ba86", "#d5cce9", "#9fcf7f"]
 
-	for (let i = 0; i < locationData.zones.length; i++) {
-		let layer = state.layers[i];
-		let community = state.communityDataState[locationData.zones[i].community_id-1].data;
+	// Match zones to layers by name to ensure correct order and mapping
+	let validZones = [];
+	state.layers.forEach(layer => {
+		let zone = locationData.zones.find(z => layer.name.startsWith(z.layer));
+		if (zone) {
+			validZones.push({layer: layer, zone: zone});
+		}
+	});
+
+	for (let i = 0; i < validZones.length; i++) {
+		let layer = validZones[i].layer;
+		let community = state.communityDataState[validZones[i].zone.community_id-1].data;
 
 		const step = container.append("div")
 			.attr("id", layer.name)
@@ -80,7 +89,7 @@ function setupDiveVisualization() {
 		}
 
 		// Add sea floor to the last layer
-		if (i === locationData.zones.length - 1) {
+		if (i === validZones.length - 1) {
 			const seaFloor = step.append("div")
 				.attr("class", "sea-floor")
 				.html(`
