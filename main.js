@@ -132,18 +132,33 @@ function setupDiveVisualization() {
 			.attr("viewBox", [0, 0, window.innerWidth, window.innerHeight])
 			.attr("style", "max-width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: -1;");
 
-		const fishGroup = svg.append("g").attr("id", "fish");
-		for (let j = 0; j < 100; j++) {
-			let fishIndex = randomFish(community);
-			let size = 20;
+		// Get fish SVGs
+		Promise.all([...Array(community.length).keys()].map(i => getFishSVG(community[i].species))).then(data => {
+			// Draw fish SVGs
+			const fishGroup = svg.append("g").attr("id", "fish").style("pointer-events", "auto");
+			for (let j = 0; j < 100; j++) {
+				let fishIndex = randomFish(community);
+				let size = 80;
 
-			fishGroup.append("circle")
-				.attr("id", community[fishIndex].species)
-				.attr("cx", randomInRange(size, window.innerWidth-size))
-				.attr("cy", randomInRange(size, window.innerHeight-size))
-				.attr("r", size)
-				.attr("fill", fishColors[fishIndex]);
-		}
+				if (data[fishIndex] != 'X') {
+					fishGroup.append("image")
+						.attr("id", community[fishIndex].species)
+						.attr("xlink:href", data[fishIndex])
+						.attr("height", size)
+						.attr("width", size)
+						.attr("x", randomInRange(0, window.innerWidth - size))
+						.attr("y", randomInRange((i == 0 ? 100 : 0), window.innerHeight - size - (i == locationData.zones.length - 1 ? 100 : 0)));
+				}
+				else {
+					fishGroup.append("circle")
+						.attr("id", community[fishIndex].species)
+						.attr("cx", randomInRange(size/4, window.innerWidth - size/4))
+						.attr("cy", randomInRange(size/4, window.innerHeight - size/4))
+						.attr("r", size/4)
+						.attr("fill", fishColors[fishIndex]);
+				}
+			}
+		})
 
 		// Attach SVG to document
 		document.getElementById(layer.name).append(svg.node())
