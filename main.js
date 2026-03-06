@@ -75,7 +75,7 @@ function setupDiveVisualization() {
 		'Phellia', 'Abyssopathes', 'Bathygorgia', 'Docosaccus', 'Tunicate', 
 		'Strongylocentrotus', 'Mesocentrotus', 'Peniagone', 'Enypniastes',
 		'Swiftia', 'Acantholaimus', 'Nematocarcinus', 'Amphiophiura', 
-		'Stephanoscyphistoma', 'Axinodon', 'Propeamussium', 'Pyrosoma atlanticum', 'Thouarella', 'Madrepora oculata', 'Enallopsammia rostrata', 'Paramuricea', 'Axinodon bornianus', 'Propeamussium meridionale', 'Ophiosphalma armigerum', 'Benthodytes'
+		'Stephanoscyphistoma', 'Axinodon', 'Propeamussium', 'Pyrosoma atlanticum', 'Thouarella', 'Madrepora oculata', 'Enallopsammia rostrata', 'Paramuricea', 'Axinodon bornianus', 'Propeamussium meridionale', 'Ophiosphalma armigerum', 'Benthodytes', 'Muriceides'
 	];
 
 	const fishFacingRight = [

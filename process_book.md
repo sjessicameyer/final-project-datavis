@@ -80,7 +80,6 @@ We used `ggplot2` in R to generate static heatmaps of species abundance and prel
 *   **Insight 3**: The bathymetry is crucial. Early visualizations showed "deep sea" communities on land. We added a bathymetry filter to strictly mask invalid depths.
 
 ## Design Evolution
-### TODO
 
 ### Initial Sketches
 ![Image of first sketch](assets/sketch1.png)
@@ -138,7 +137,19 @@ The project uses a static site structure with:
 *   **Findings**: The visualization clearly shows that biodiversity "hotspots" shift as you go deeper. Surface hotspots don't always align with deep-sea hotspots.
 *   **Performance**: The KNN model provides a good approximation, but the transition between zones can be abrupt.
 *   **Future Improvements**:
-    *   TODO
+ 
+### 1. Visualization Scalability & Performance
+The current implementation relies on SVG elements for rendering marine life. While effective for the current scale, this approach places a heavy load on the DOM and may encounter performance bottlenecks as the number of animated entities increases.
+*   **Proposal**: Transition the rendering engine to **HTML5 Canvas** or **WebGL** (using libraries like PixiJS or Three.js). This would enable the simulation of thousands of organisms and complex particle effects at a consistent 60 FPS, significantly enhancing the immersive quality of the dive without lagging the browser.
+
+### 2. Responsive & Adaptive Layouts
+The dive visualization currently initializes based on the window dimensions at the moment the dive starts. If a user resizes their browser or rotates their device, elements may become misaligned.
+*   **Proposal**: Implement a robust **Resize Observer** system. This would dynamically recalculate spatial coordinates and scales for the sea floor and organisms when the browser window is resized, ensuring a consistent experience across all devices and screen orientations.
+
+### 3. Enhanced Interactivity
+Currently, the user experience is primarily observational (scrollytelling).
+*   **Proposal**: Introduce an **Interactive Layer** where users can click on individual species to access detailed "Species Cards". These cards could display taxonomic classification, abundance statistics, and biological facts, transforming the visualization from a passive viewing experience into an active educational tool.
+
 
 ## References
 - D3.js
