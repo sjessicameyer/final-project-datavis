@@ -209,6 +209,8 @@ li {
 
 /* video Section */
 #video-section {
+    width: 100%;
+    max-width: 100%;
     padding: 60px 20px;
     background-color: #fff;
     border-top: 1px solid #eee;
@@ -244,7 +246,6 @@ li {
 }
 
 #video-section video {
-    max-width: 100%;
     height: auto;
     display: block;
     margin: 1rem auto;
