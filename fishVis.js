@@ -14,23 +14,16 @@ async function getFishSVG(sciName) {
 	// Check for valid taxon magnitude search
 	return axios.get(phylopic_url+search_phylopic_tag+species).then(res => { // Search by species
 		if (res.data.totalItems == 0) {
-			return axios.get(phylopic_url+search_phylopic_tag+genus).then((res) => { // Search by genus
-				if(res.data.totalItems == 0) {
-					return axios.post(search_NCBI_url, NCBI_body, NCBI_header).then((res) => { // Search NCBI for more info
-						const classification = res.data.reports[0].taxonomy.classification;
-						return axios.get(phylopic_url+search_phylopic_tag+classification.family.name.toLowerCase()).then((res) => { // Search by family
+			return axios.post(search_NCBI_url, NCBI_body, NCBI_header).then((res) => { // Search NCBI for more info
+				const classification = res.data.reports[0].taxonomy.classification;
+				return axios.get(phylopic_url+search_phylopic_tag+classification.family.name.toLowerCase()).then((res) => { // Search by family
+					if (res.data.totalItems == 0) {
+						return axios.get(phylopic_url+search_phylopic_tag+classification.order.name.toLowerCase()).then((res) => { // Search by order
 							if (res.data.totalItems == 0) {
-								return axios.get(phylopic_url+search_phylopic_tag+classification.order.name.toLowerCase()).then((res) => { // Search by order
+								return axios.get(phylopic_url+search_phylopic_tag+classification.class.name.toLowerCase()).then((res) => { // Search by class
 									if (res.data.totalItems == 0) {
-										return axios.get(phylopic_url+search_phylopic_tag+classification.class.name.toLowerCase()).then((res) => { // Search by class
-											if (res.data.totalItems == 0) {
-												return axios.get(phylopic_url+search_phylopic_tag+classification.phylum.name.toLowerCase()).then((res) => { // Search by phylum
-													return res.data.totalItems == 0 ? 'X' : res.data._links.firstPage.href;
-												});
-											}
-											else {
-												return res.data._links.firstPage.href;
-											}
+										return axios.get(phylopic_url+search_phylopic_tag+classification.phylum.name.toLowerCase()).then((res) => { // Search by phylum
+											return res.data.totalItems == 0 ? 'X' : res.data._links.firstPage.href;
 										});
 									}
 									else {
@@ -42,11 +35,11 @@ async function getFishSVG(sciName) {
 								return res.data._links.firstPage.href;
 							}
 						});
-					});
-				}
-				else {
-					return res.data._links.firstPage.href;
-				}
+					}
+					else {
+						return res.data._links.firstPage.href;
+					}
+				});
 			});
 		}
 		else {
