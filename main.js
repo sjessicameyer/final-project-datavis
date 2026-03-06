@@ -58,6 +58,13 @@ function setupDiveVisualization() {
 	let fishColors = ["#d5cce9", "#9fcf7f", "#ffc265", "#ffafd1", "#68ba86"]
 	let fishColorClasses = ["filter-d5cce9", "filter-9fcf7f", "filter-ffc265", "filter-ffafd1", "filter-68ba86"]
 
+	const benthicResidents = [
+		'Chrysogorgia', 'Acanella', 'Thenea', 'Ophiomusa', 
+		'Ophiocten', 'Solenosmilia', 'Anthomastus', 'Hyalonema',
+		'Desmophyllum', 'Hemicorallium', 'Stichopathes', 'Retaria', 
+		'Phellia', 'Abyssopathes', 'Bathygorgia', 'Docosaccus'
+	];
+
 	// Match zones to layers by name to ensure correct order and mapping
 	let validZones = [];
 	state.layers.forEach(layer => {
@@ -70,6 +77,7 @@ function setupDiveVisualization() {
 	for (let i = 0; i < validZones.length; i++) {
 		let layer = validZones[i].layer;
 		let community = state.communityDataState[validZones[i].zone.community_id-1].data;
+		let hasBenthic = community.some(c => c.kingdom === 'Plantae' || benthicResidents.includes(c.species));
 
 		const step = container.append("div")
 			.attr("id", layer.name)
@@ -87,6 +95,27 @@ function setupDiveVisualization() {
 							<use xlink:href="#gentle-wave" x="48" y="7" fill="#dcf4ff" />
 						</g>
 					</svg>`);
+		}
+
+		// Add shelf to Bathypelagic Zone if it's not the last layer and has benthic species
+		if (layer.name === "Bathypelagic Zone" && i !== validZones.length - 1 && hasBenthic) {
+			step.append("div")
+				.attr("class", "sea-floor")
+				.style("height", "200px")
+				.style("position", "absolute")
+				.style("bottom", "0")
+				.style("width", "100%")
+				.html(`
+					<svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+						<defs>
+							<linearGradient id="shelf-gradient" x1="0" x2="0" y1="1" y2="0">
+								<stop offset="0%" stop-color="#3b3b3b" stop-opacity="0"/>
+								<stop offset="100%" stop-color="#595959"/>
+							</linearGradient>
+						</defs>
+						<path d="M0,40 Q50,20 100,40 V100 H0 Z" fill="url(#shelf-gradient)" />
+					</svg>
+				`);
 		}
 
 		// Add sea floor to the last layer
@@ -153,11 +182,6 @@ function setupDiveVisualization() {
 
 					if (data[fishIndex] != 'X') {
 						let yPos, xPos;
-						const benthicResidents = [
-							'Chrysogorgia', 'Acanella', 'Thenea', 'Ophiomusa', 
-							'Ophiocten', 'Solenosmilia', 'Anthomastus', 'Hyalonema',
-							'Desmophyllum', 'Hemicorallium', 'Stichopathes', 'Retaria'
-						];
 						if (community[fishIndex].kingdom == 'Plantae' || benthicResidents.includes(community[fishIndex].species)) {
 							size = 30 + randomInRange(0, 30);
 							xPos = randomInRange(0, window.innerWidth - size);
@@ -168,6 +192,13 @@ function setupDiveVisualization() {
 								let yPct = getFloorYPercent(xPct);
 								let sandHeight = (100 - yPct) * 2.5; // Scale factor assuming ~250px floor height
 								yPos = window.innerHeight - size - sandHeight;
+							} else if (layer.name === "Bathypelagic Zone" && i !== validZones.length - 1 && hasBenthic) {
+								let xCenter = xPos + size / 2;
+								let t = xCenter / window.innerWidth;
+								// Bezier curve for shelf: M0,40 Q50,20 100,40 -> P0=40, P1=20, P2=40
+								let y_svg = 40 * Math.pow(1-t, 2) + 20 * 2 * (1-t) * t + 40 * Math.pow(t, 2);
+								let groundHeightPx = 200 * (1 - y_svg / 100);
+								yPos = window.innerHeight - size - groundHeightPx;
 							} else {
 								yPos = window.innerHeight - size;
 							}
