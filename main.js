@@ -185,7 +185,7 @@ function setupDiveVisualization() {
 					if (data[fishIndex] != 'X') {
 						let yPos, xPos;
 						if (community[fishIndex].kingdom == 'Plantae' || benthicResidents.includes(community[fishIndex].species)) {
-							size = 30 + randomInRange(0, 30);
+							size = 30 + randomInRange(20, 50);
 							xPos = randomInRange(0, window.innerWidth - size);
 
 							if (i == validZones.length - 1) {
@@ -200,14 +200,14 @@ function setupDiveVisualization() {
 								// Bezier curve for shelf: M0,40 Q50,20 100,40 -> P0=40, P1=20, P2=40
 								let y_svg = 40 * Math.pow(1-t, 2) + 20 * 2 * (1-t) * t + 40 * Math.pow(t, 2);
 								let groundHeightPx = 200 * (1 - y_svg / 100);
-								yPos = window.innerHeight - size - groundHeightPx;
+								yPos = window.innerHeight - size - groundHeightPx - 10;
 							} else {
 								yPos = window.innerHeight - size;
 							}
 							yPos += randomInRange(0, 20); // Add some vertical randomness
 						} else {
 							xPos = randomInRange(0, window.innerWidth - size);
-							yPos = randomInRange((i == 0 ? 100 : 0), window.innerHeight - size - (i == locationData.zones.length - 1 ? 100 : 0));
+							yPos = randomInRange((i == 0 ? 100 : 0), window.innerHeight - size - (i == locationData.zones.length - 1 ? 100 : 0) - ((i == 2 && i != locationData.zones.length - 1) ? 150 : 0));
 						}
 
 						fishGroup.append("image")
