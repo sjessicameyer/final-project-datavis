@@ -343,22 +343,22 @@ li {
     z-index: 3;
 }
 
-.filter-ffc265 {
-	filter: invert(70%) sepia(87%) saturate(325%) hue-rotate(338deg) brightness(102%) contrast(102%);
+.filter-first {
+	filter: invert(65%) sepia(14%) saturate(1797%) hue-rotate(120deg) brightness(95%) contrast(98%);
 }
 
-.filter-ffafd1 {
-	filter: invert(84%) sepia(15%) saturate(1576%) hue-rotate(290deg) brightness(100%) contrast(102%);
+.filter-second {
+	filter: invert(72%) sepia(93%) saturate(1160%) hue-rotate(154deg) brightness(83%) contrast(88%);
 }
 
-.filter-68ba86 {
-	filter: invert(64%) sepia(12%) saturate(1226%) hue-rotate(89deg) brightness(101%) contrast(92%);
+.filter-third {
+	filter: invert(40%) sepia(10%) saturate(1986%) hue-rotate(202deg) brightness(93%) contrast(95%);
 }
 
-.filter-d5cce9 {
-	filter: invert(88%) sepia(11%) saturate(874%) hue-rotate(207deg) brightness(98%) contrast(87%);
+.filter-fourth {
+	filter: invert(61%) sepia(54%) saturate(1963%) hue-rotate(322deg) brightness(101%) contrast(93%);
 }
 
-.filter-9fcf7f {
-	filter: invert(94%) sepia(9%) saturate(1840%) hue-rotate(39deg) brightness(87%) contrast(84%);
+.filter-fifth {
+	filter: invert(59%) sepia(25%) saturate(951%) hue-rotate(309deg) brightness(84%) contrast(121%);
 }
