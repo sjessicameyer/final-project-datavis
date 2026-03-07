@@ -3,7 +3,7 @@ Our site can be accessed [here](https://sjessicameyer.github.io/final-project-da
 
 The Marine Diversity Dive is a simple visualization of the distribution of marine biodiversity across different depth ocean zones.
 
-[![Watch the demo](assets\first_page.png)](assets\demo.mp4)
+[![Watch the video](https://github.com/sjessicameyer/final-project-datavis/blob/main/assets/first_page.png)](https://github.com/sjessicameyer/final-project-datavis/blob/main/assets/demo.mp4)
 
 ## Using the Site
 Upon entering the site, users will be greeted with a map of the world centered on the Pacific Ocean. The map is color coded by Ecological Community group per layer, and the layer can be changed using the dropdown in the top right of the map. The map can be zoomed using the scroll wheel or other scroll functionality, or through the plus and minus buttons located in the bottom right corner of the map. Additionally, the map can be dragged around to locate more precise regions. After clicking on any water source on the map, the program will begin its "dive". Users can then scroll through the different marine zones located at the region they selected and explore the most common marine life at each depth.
