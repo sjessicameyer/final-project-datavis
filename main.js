@@ -75,11 +75,18 @@ function setupDiveVisualization() {
 		'Phellia', 'Abyssopathes', 'Bathygorgia', 'Docosaccus', 'Tunicate', 
 		'Strongylocentrotus', 'Mesocentrotus', 'Peniagone', 'Enypniastes',
 		'Swiftia', 'Acantholaimus', 'Nematocarcinus', 'Amphiophiura', 
-		'Stephanoscyphistoma', 'Axinodon', 'Propeamussium', 'Pyrosoma atlanticum', 'Thouarella', 'Madrepora oculata', 'Enallopsammia rostrata', 'Paramuricea', 'Axinodon bornianus', 'Propeamussium meridionale', 'Ophiosphalma armigerum', 'Benthodytes', 'Muriceides', 'Anthomastus', 'Hemicorallium', 'Chrysogorgia', 'Narella', 'Chonelasma'
+		'Stephanoscyphistoma', 'Axinodon', 'Propeamussium', 'Thouarella', 'Madrepora oculata', 'Enallopsammia rostrata', 'Paramuricea', 'Axinodon bornianus', 'Propeamussium meridionale', 'Ophiosphalma armigerum', 'Benthodytes', 'Muriceides', 'Anthomastus', 'Hemicorallium', 'Chrysogorgia', 'Narella', 'Chonelasma'
 	];
 
+	const SeaFloorResidents = [
+		'Amphiophiura',
+		'Ophiocten',
+		'Ophiomusa',
+		'Ophiosphalma armigerum'
+	]
+
 	const fishFacingRight = [
-		'Pseudanthias bartlettorum', 'Sprattus sprattus', 'Hippoglossoides platessoides', 'Clupea harengus'
+		'Pseudanthias bartlettorum', 'Sprattus sprattus', 'Hippoglossoides platessoides', 'Clupea harengus', 'Phalacrocorax sulcirostris', 'Microcarbo melanoleucos', 'Chelonia mydas'
 	];
 
 	const fishFacingUp = [
@@ -156,13 +163,14 @@ function setupDiveVisualization() {
 				`);
 
 			// Add pebbles
+			const pebbles = seaFloor.append("g").attr("id", "pebbles");
 			for (let k = 0; k < 20; k++) {
 				let w = Math.random() * 30 + 60;
 				let h = Math.random() * 15 + 30;
 				let l = Math.random() * 100;
 				let b = Math.random() * 40
 				let borderRadius = `${randomInRange(40,60)}% ${randomInRange(40,60)}% ${randomInRange(40,60)}% ${randomInRange(40,60)}% / ${randomInRange(40,60)}% ${randomInRange(40,60)}% ${randomInRange(40,60)}% ${randomInRange(40,60)}%`;
-				step.append("div")
+				pebbles.append("div")
 					.attr("class", "pebble")
 					.style("left", `calc(${l}% - ${w/2}px)`)
 					.style("width", w + "px")
@@ -209,11 +217,12 @@ function setupDiveVisualization() {
 					}
 					
 					let taxonomy = taxonomyData[fishIndex];
-					let size = getFishSize(taxonomy);
+					let size = getFishSize(taxonomy, community[fishIndex].species);
 
 					if (data[fishIndex] != 'X') {
 						let yPos, xPos;
 						let isBenthic = benthicResidents.some(r => community[fishIndex].species.includes(r));
+						let isSeaBed = SeaFloorResidents.some(r => community[fishIndex].species.includes(r));
 						if (isBenthic) {
 							xPos = randomInRange(0, window.innerWidth - size);
 
@@ -222,21 +231,21 @@ function setupDiveVisualization() {
 								let xPct = (xCenter / window.innerWidth) * 100;
 								let yPct = getFloorYPercent(xPct);
 								let sandHeight = (100 - yPct) * 2.5; // Scale factor assuming ~250px floor height
-								yPos = window.innerHeight - size - sandHeight;
+								yPos = window.innerHeight - size - (sandHeight * (isSeaBed ? 0.4 : 1));
 							} else if (i !== validZones.length - 1 && hasBenthic) {
 								let xCenter = xPos + size / 2;
 								let t = xCenter / window.innerWidth;
 								// Bezier curve for shelf: M0,40 Q50,20 100,40 -> P0=40, P1=20, P2=40
 								let y_svg = 40 * Math.pow(1-t, 2) + 20 * 2 * (1-t) * t + 40 * Math.pow(t, 2);
 								let groundHeightPx = 200 * (1 - y_svg / 100);
-								yPos = window.innerHeight - size - groundHeightPx - 10;
+								yPos = window.innerHeight - size - (groundHeightPx * (isSeaBed ? 0.6 : 1));
 							} else {
 								yPos = window.innerHeight - size;
 							}
 							yPos += randomInRange(0, 20); // Add some vertical randomness
 						} else {
 							xPos = randomInRange(0, window.innerWidth - size);
-							yPos = randomInRange((i == 0 ? 100 : 0), window.innerHeight - size - (i == locationData.zones.length - 1 ? 100 : 0) - ((i == 2 && i != locationData.zones.length - 1) ? 150 : 0));
+							yPos = randomInRange((i == 0 ? 100 : 0), window.innerHeight - size - (i == locationData.zones.length - 1 ? 100 : 0) - ((i != locationData.zones.length - 1 && hasBenthic) ? 150 : 0));
 						}
 
 						let fish = fishGroup.append("image")
@@ -248,7 +257,7 @@ function setupDiveVisualization() {
 							.attr("x", xPos)
 							.attr("y", yPos);
 
-						if (!isBenthic) {
+						if (!isBenthic || isSeaBed) {
 							fish.style("transform-box", "fill-box")
 								.style("transform-origin", "center");
 							animateFish(fish, fishFacingRight, fishFacingUp);

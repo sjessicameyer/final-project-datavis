@@ -6,7 +6,7 @@ async function getFishSVG(sciName, taxonomy) {
 	const search_phylopic_tag = '/images?build=536&filter_name=';
 	const species = sciName.toLowerCase().replace(' ', '%20');
 
-	if (taxonomy == 'X' || sciName == 'Chrysogorgia' || sciName == 'Thouarella') {
+	if (taxonomy == 'X' || fishCosmeticExceptions.includes(sciName)) {
 		return fishExceptions(sciName);
 	}
 
@@ -84,12 +84,19 @@ async function getClassificationInformation(community) {
 	});
 }
 
+const fishCosmeticExceptions = ['Chrysogorgia', 'Thouarella', 'Acanella', 'Strongylocentrotus purpuratus', 'Mesocentrotus franciscanus'];
+
 function fishExceptions(species) {
 	switch (species) {
 		// Default algorithm picks ugly SVG
 		case 'Chrysogorgia':
 		case 'Thouarella':
+		case 'Acanella':
 			return 'https://images.phylopic.org/images/c219e634-002e-4da0-af23-f0ef916db93e/vector.svg';
+		case 'Strongylocentrotus purpuratus':
+			return 'https://images.phylopic.org/images/de3e0cb3-8271-45c1-8bd5-77c6e74e438c/vector.svg';
+		case 'Mesocentrotus franciscanus':
+			return 'https://images.phylopic.org/images/06119510-7641-4a0b-8585-93ccb5ca9447/vector.svg';
 		// Species / genus don't exist in NCBI database
 		case "Pterosperma marginatum":
 		case "Pterosperma vanhoeffenii":
@@ -187,9 +194,10 @@ function titleCase(str) {
 	}).join(' ');
 }
 
-function getFishSize(taxonomy) {
+function getFishSize(taxonomy, species) {
 	let size = 80;
-	if (!taxonomy || taxonomy == 'X') return size + randomInRange(-20, 20);
+	if (fishSizeExceptions(species) > 0) size = fishSizeExceptions(species);
+	else if (!taxonomy || taxonomy == 'X') return size + randomInRange(-20, 20);
 
 	// Check specific groups for size overrides
 	if (taxonomy.class?.name == 'Mammalia') size = 250;
@@ -197,23 +205,63 @@ function getFishSize(taxonomy) {
 	else if (taxonomy.order?.name == 'Cetacea') size = 250;
 	else if (taxonomy.class?.name == 'Anthozoa') size = 50;
 	else if (taxonomy.class?.name == 'Cephalopoda') size = 120;
+	else if (taxonomy.class?.name == 'Actinopterygii') size = 90;
 	else if (taxonomy.phylum?.name == 'Cnidaria') size = 120;
 	else if (taxonomy.phylum?.name == 'Arthropoda') size = 40;
-	else if (taxonomy.phylum?.name == 'Mollusca') size = 40;
+	else if (taxonomy.phylum?.name == 'Mollusca') size = 30;
 	else if (taxonomy.phylum?.name == 'Echinodermata') size = 40;
 	else if (taxonomy.phylum?.name == 'Porifera') size = 50;
 	else if (taxonomy.phylum?.name == 'Annelida' || taxonomy.phylum?.name == 'Nematoda') size = 40;
 	else if (taxonomy.kingdom?.name == 'Plantae' || taxonomy.phylum?.name == 'Chlorophyta') size = 45;
-	else if (taxonomy.class?.name == 'Actinopterygii') size = 90;
 
 	return Math.max(30, size + randomInRange(-10, 10));
+}
+
+function fishSizeExceptions(species) {
+	let size;
+
+	switch(species) {
+		case "Pterosperma marginatum":
+		case "Pterosperma vanhoeffenii":
+		case "Pterosperma moebii":
+			size = 20;
+			break;
+		case "Luzonichthys whitleyi":
+			size = 90;
+			break;
+		case "Swiftia torreyi":
+			size = 45;
+			break;
+		case "Acantholaimus veitkoehlerae":
+		case "Acantholaimus maks":
+			size = 'Marine Nematode';
+			break;
+		case "Nematocarcinus sigmoideus":
+			size = 40;
+			break;
+		case "Amphiophiura convexa":
+			size = 40;
+			break;
+		case "Stephanoscyphistoma":
+			size = 120;
+		case "Axinodon bornianus":
+			size = 30;
+			break;
+		case "Propeamussium meridionale":
+			size = 30;
+			break;
+		default:
+			return -1;
+	}
+
+	return Math.max(30, size + randomInRange(-10, 10))
 }
 
 function animateFish(fish, fishFacingRight, fishFacingUp) {
 	let startX = parseFloat(fish.attr("x"));
 	let width = parseFloat(fish.attr("width"));
 	let endX = randomInRange(0, window.innerWidth - width);
-	
+
 	let dist = Math.abs(endX - startX);
 	let duration = dist * 30 + 2000;
 	
@@ -224,11 +272,13 @@ function animateFish(fish, fishFacingRight, fishFacingUp) {
 	let transform;
 	if (facesUp) {
 		transform = (endX > startX) ? "rotate(90deg)" : "rotate(-90deg)";
-    } else {
+  }
+	else {
 		let scale;
 		if (facesRight) {
 			scale = endX < startX ? -1 : 1;
-		} else {
+		}
+		else {
 			scale = endX > startX ? -1 : 1;
 		}
 		transform = `scaleX(${scale})`;
